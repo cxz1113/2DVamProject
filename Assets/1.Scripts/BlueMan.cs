@@ -14,6 +14,8 @@ public class BlueMan : Player
     void Start()
     {
         Initialize();
+        direction = Direction.Stand;
+        GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);
     }
     void Update()
     {

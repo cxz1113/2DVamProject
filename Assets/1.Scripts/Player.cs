@@ -15,47 +15,62 @@ public abstract class Player : MonoBehaviour
 
     public enum Direction
     {
-        stop,
-        left,
-        right
+        Stand,
+        Left,
+        Right,
+        Up,
+        Down
     }
 
-    private Direction ani = Direction.stop;
+    public Direction direction = Direction.Stand;
 
-    [SerializeField] private List<Sprite> idleSp;
+    [SerializeField] public List<Sprite> idleSp;
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> dieSp;
-
-    SpriteRenderer sr;
-    void Start()
-    {
-        sr = GetComponent<SpriteRenderer>();
-        ani = Direction.stop;
-    }
+    [SerializeField] private SpriteRenderer sr;
 
     public abstract void Initialize();
 
     public virtual void Move()
     {
-        float x = Input.GetAxis("Horizontal");
+        float x = Input.GetAxisRaw("Horizontal");
 
-        float y = Input.GetAxis("Vertical");
+        float y = Input.GetAxisRaw("Vertical");
         
-        Vector2 dir = new Vector3(x , y);
+        Vector3 dir = new Vector3(x , y, 0f);
         transform.Translate(dir * Time.deltaTime * pt.speed);
 
-        if(x == 0 && y == 0)
+        if(x < 0 && direction != Direction.Left)
         {
-            ani = Direction.stop;
-            GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);
+            if(Input.GetAxisRaw("Horizontal") < 0)
+            {
+                sr.flipX = true;
+                direction = Direction.Left;
+                GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
+            }                     
         }
-        else if(x > 0)
+        else if(x> 0 && direction != Direction.Right)
         {
-            GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);            
+            if(Input.GetAxisRaw("Horizontal") > 0)
+            {
+                sr.flipX = false;
+                direction = Direction.Right;                
+                GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);                
+            }            
         }
-        else if(x < 0)
+        else if (dir == Vector3.zero && direction != Direction.Stand)
         {
-            sr.flipX = true;
+            direction = Direction.Stand;
+            GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);            
+        }
+        if (dir == Vector3.up && direction != Direction.Up)
+        {
+            direction = Direction.Up;
+            GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
+        }
+        else if (dir == Vector3.down && direction != Direction.Down)
+        {
+            direction = Direction.Down;
             GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
         }
     }
