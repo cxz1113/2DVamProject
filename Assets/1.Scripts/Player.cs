@@ -62,6 +62,7 @@ public abstract class Player : MonoBehaviour
                 GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);                
             }            
         }
+        // 캐릭터가 정지해있을때 Idle Sprite 사용
         else if (dir == Vector3.zero && direction != Direction.Stand)
         {
             direction = Direction.Stand;
