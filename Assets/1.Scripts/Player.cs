@@ -34,33 +34,30 @@ public abstract class Player : MonoBehaviour
     public virtual void Move()
     {
         float x = Input.GetAxisRaw("Horizontal");
-
         float y = Input.GetAxisRaw("Vertical");
         
-        Vector3 dir = new Vector3(x , y, 0f);
+        Vector3 dir = new Vector3(x, y, 0f);
         transform.Translate(dir * Time.deltaTime * pt.speed);
 
+        if(x < 0)
+        {
+            sr.flipX = true;
+        }
+        else if(x > 0)
+        {
+            sr.flipX = false;
+        }
         // 왼쪽 이동시 Sprite사용
         if(x < 0 && direction != Direction.Left)
         {
-            // 방향 전환시 바라보는 방향 변경
-            if(Input.GetAxisRaw("Horizontal") < 0)
-            {
-                sr.flipX = true;
-                direction = Direction.Left;
-                GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
-            }                     
+            direction = Direction.Left;
+            GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
         }
         // 오른쪽으로 이동시 Sprite 사용
         else if(x> 0 && direction != Direction.Right)
         {
-            // 방향 전환시 바라보는 방향 변경
-            if (Input.GetAxisRaw("Horizontal") > 0)
-            {
-                sr.flipX = false;
-                direction = Direction.Right;                
-                GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);                
-            }            
+            direction = Direction.Right;
+            GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
         }
         // 캐릭터가 정지해있을때 Idle Sprite 사용
         else if (dir == Vector3.zero && direction != Direction.Stand)

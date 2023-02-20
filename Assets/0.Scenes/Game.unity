@@ -4374,7 +4374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53cd0c2cd7a7dae4486cac66af1dcc76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 394247681}
+  player: {fileID: 494005144}
 --- !u!1 &309877783
 GameObject:
   m_ObjectHideFlags: 0
@@ -17101,6 +17101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2046368451}
   - component: {fileID: 2046368450}
+  - component: {fileID: 2046368452}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -17139,3 +17140,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2046368452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046368449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6a7226e566a6784ba22178f7b5eee18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapObjs:
+  - {fileID: 839921227}
+  - {fileID: 59638761}
+  - {fileID: 408532411}
+  - {fileID: 309877783}
+  camera: {fileID: 239167381}
+  player: {fileID: 494005144}
