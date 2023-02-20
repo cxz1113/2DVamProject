@@ -40,8 +40,10 @@ public abstract class Player : MonoBehaviour
         Vector3 dir = new Vector3(x , y, 0f);
         transform.Translate(dir * Time.deltaTime * pt.speed);
 
+        // 왼쪽 이동시 Sprite사용
         if(x < 0 && direction != Direction.Left)
         {
+            // 방향 전환시 바라보는 방향 변경
             if(Input.GetAxisRaw("Horizontal") < 0)
             {
                 sr.flipX = true;
@@ -49,9 +51,11 @@ public abstract class Player : MonoBehaviour
                 GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
             }                     
         }
+        // 오른쪽으로 이동시 Sprite 사용
         else if(x> 0 && direction != Direction.Right)
         {
-            if(Input.GetAxisRaw("Horizontal") > 0)
+            // 방향 전환시 바라보는 방향 변경
+            if (Input.GetAxisRaw("Horizontal") > 0)
             {
                 sr.flipX = false;
                 direction = Direction.Right;                

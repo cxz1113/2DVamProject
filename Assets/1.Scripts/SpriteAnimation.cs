@@ -10,13 +10,13 @@ public class SpriteAnimation : MonoBehaviour
     private float spriteDelayTime;
     private float delayTime = 0;
     int spriteIndex = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
+    // Sprite List로 사용하여 Sprite사용
     void Update()
     {
         if (sprites.Count == 0)
