@@ -63,7 +63,7 @@ public abstract class Player : MonoBehaviour
             direction = Direction.Stand;
             GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);            
         }
-        if (dir == Vector3.up && direction != Direction.Up)
+        else if (dir == Vector3.up && direction != Direction.Up)
         {
             direction = Direction.Up;
             GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
