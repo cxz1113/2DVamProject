@@ -29,32 +29,33 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private List<Sprite> dieSp;
     [SerializeField] private SpriteRenderer sr;
 
+    public Vector3 inputVec;
     public abstract void Initialize();
 
     public virtual void Move()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
+        inputVec.x = Input.GetAxisRaw("Horizontal");
+        inputVec.y = Input.GetAxisRaw("Vertical");
         
-        Vector3 dir = new Vector3(x, y, 0f);
+        Vector3 dir = new Vector3(inputVec.x, inputVec.y, 0f);
         transform.Translate(dir * Time.deltaTime * pt.speed);
 
-        if(x < 0)
+        if(inputVec.x < 0)
         {
             sr.flipX = true;
         }
-        else if(x > 0)
+        else if(inputVec.x > 0)
         {
             sr.flipX = false;
         }
         // 왼쪽 이동시 Sprite사용
-        if(x < 0 && direction != Direction.Left)
+        if(inputVec.x < 0 && direction != Direction.Left)
         {
             direction = Direction.Left;
             GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
         }
         // 오른쪽으로 이동시 Sprite 사용
-        else if(x> 0 && direction != Direction.Right)
+        else if(inputVec.x > 0 && direction != Direction.Right)
         {
             direction = Direction.Right;
             GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
