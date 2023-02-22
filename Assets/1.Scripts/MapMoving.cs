@@ -12,9 +12,8 @@ public class MapMoving : MonoBehaviour
         float disX = Mathf.Abs(playerPos.x - mapPos.x);
         float disY = Mathf.Abs(playerPos.y - mapPos.y);
 
-        Vector3 playerDir = GameMapManager.instance.player.inputVec;
 
-        if(disX > disY)
+        /*if(disX > disY)
         {
             if(playerDir.x > 0)
             {
@@ -35,6 +34,6 @@ public class MapMoving : MonoBehaviour
             {
                 transform.Translate(Vector3.down * 40);
             }
-        }
+        }*/
     }
 }

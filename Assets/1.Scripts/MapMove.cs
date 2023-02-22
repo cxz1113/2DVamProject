@@ -6,7 +6,7 @@ public class MapMove : MonoBehaviour
 {
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Area"))
+        /*if (!collision.CompareTag("Area"))
             return;
         Vector3 playerPos = GameMapManager.instance.player.transform.position;
         Vector3 mapPos = transform.position;
@@ -27,6 +27,6 @@ public class MapMove : MonoBehaviour
             {
                 transform.Translate(Vector3.up * dirY * 40);
             }
-        }
+        }*/
     }
 }
