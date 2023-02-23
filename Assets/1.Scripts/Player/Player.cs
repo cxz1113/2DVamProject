@@ -11,10 +11,8 @@ public struct PlayerType
 public enum Direction
 {
     Stand,
-    Left,
-    Right,
-    Up,
-    Down
+    Run,
+    Die
 }
 
 public abstract class Player : MonoBehaviour
@@ -28,47 +26,35 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private List<Sprite> dieSp;
     [SerializeField] private SpriteRenderer sr;
 
-    public Vector3 vec;
     public abstract void Initialize();
 
     public virtual void Move()
     {
-        vec.x = Input.GetAxisRaw("Horizontal");
-        vec.y = Input.GetAxisRaw("Vertical");
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
         
-        Vector3 dir = new Vector3(vec.x, vec.y, 0f);
+        Vector3 dir = new Vector3(x, y, 0f);
         transform.Translate(dir * Time.deltaTime * pt.speed);
 
-        if(vec.x < 0)
+        if(x < 0)
         {
             sr.flipX = true;
         }
-        else if(vec.x > 0)
+        else if(x > 0)
         {
             sr.flipX = false;
         }
         // 왼쪽 또는 오른쪽 이동시 Sprite 사용
-        if(vec.x < 0 && direction != Direction.Left)
+        if((x != 0 || y != 0)&& direction != Direction.Run)
         {
-            direction = Direction.Left;
-            GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
-        }
-        else if(vec.x > 0 && direction != Direction.Right)
-        {
-            direction = Direction.Right;
-            GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
-        }
-        // 위쪽 또는 아래쪽 이동시 Sprite 사용
-        else if (vec.y != 0 && direction != Direction.Up)
-        {
-            direction = Direction.Up;
+            direction = Direction.Run;
             GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
         }
         // 캐릭터가 정지해있을때 Idle Sprite 사용
-        else if (dir == Vector3.zero && direction != Direction.Stand)
+        else if (x == 0 && y == 0 && direction != Direction.Stand)
         {
             direction = Direction.Stand;
-            GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);            
-        }     
+            GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);
+        }        
     }
 }

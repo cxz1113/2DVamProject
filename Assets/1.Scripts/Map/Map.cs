@@ -5,17 +5,18 @@ public class Map : MonoBehaviour
 {
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Vector3 playerPos = GameMapManager.instance.player.transform.position;
+        Vector3 playerPos = GameControllerManager.instance.player.transform.position;
         Vector3 mapPos = transform.position;
 
         float distanceX = Mathf.Abs(playerPos.x - mapPos.x);
         float distanceY = Mathf.Abs(playerPos.y - mapPos.y);
 
-        Vector3 direction = GameMapManager.instance.player.vec;
+        playerPos.x = Input.GetAxisRaw("Horizontal");
+        playerPos.y = Input.GetAxisRaw("Vertical");
 
-        if (Mathf.Abs(distanceX - distanceY) <= 0.1)
+        if (Mathf.Abs(distanceX - distanceY) <= 0.1f)
         {
-            if (direction.x > 0)
+            if (playerPos.x > 0)
             {
                 transform.Translate(Vector3.right * 40);
             }
@@ -23,8 +24,7 @@ public class Map : MonoBehaviour
             {
                 transform.Translate(Vector3.left * 40);
             }
-
-            if (direction.y > 0)
+            if (playerPos.y > 0)
             {
                 transform.Translate(Vector3.up * 40);
             }
@@ -35,7 +35,7 @@ public class Map : MonoBehaviour
         }
         else if (distanceX > distanceY)
         {
-            if(direction.x > 0)
+            if(playerPos.x > 0)
             {
                 transform.Translate(Vector3.right * 40);
             }
@@ -46,7 +46,7 @@ public class Map : MonoBehaviour
         }
         else if (distanceX < distanceY)
         {
-            if(direction.y > 0)
+            if(playerPos.y > 0)
             {
                 transform.Translate(Vector3.up * 40);
             }

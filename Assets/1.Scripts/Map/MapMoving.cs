@@ -6,7 +6,7 @@ public class MapMoving : MonoBehaviour
 {
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Vector3 playerPos = GameMapManager.instance.player.transform.position;
+        Vector3 playerPos = GameControllerManager.instance.player.transform.position;
         Vector3 mapPos = transform.position;
 
         float disX = Mathf.Abs(playerPos.x - mapPos.x);
