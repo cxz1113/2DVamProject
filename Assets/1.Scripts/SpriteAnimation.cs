@@ -41,4 +41,14 @@ public class SpriteAnimation : MonoBehaviour
         spriteDelayTime = delay;
         spriteIndex = 0;
     }
+
+    public void SetSprite(Sprite argSprite)
+    {
+        delayTime += Time.deltaTime;
+        if(delayTime > 0.5f)
+        {
+            delayTime = 0;
+            sr.sprite = argSprite;
+        }
+    }
 }

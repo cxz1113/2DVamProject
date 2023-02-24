@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RedWoman : Player
+public class Skeleton : Enemy
 {
     public override void Initialize()
     {
-        pd.hp = 50;
-        pd.speed = 7f;
-        pd.attack = 10f;
+        ed.hp = 100;
+        ed.speed = 3f;
+        ed.attack = 5f;
+        ed.player = FindAnyObjectByType<Player>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         Initialize();
-        direction = Direction.Stand;
-        GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);
     }
 }

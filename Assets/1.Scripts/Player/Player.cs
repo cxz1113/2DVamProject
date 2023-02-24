@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct PlayerType
+public struct PlayerData
 {
-    public int hp;
+    public float hp;
     public float speed;
     public float attack;
 }
@@ -17,7 +17,7 @@ public enum Direction
 
 public abstract class Player : MonoBehaviour
 {
-    public PlayerType pt = new PlayerType();    
+    public PlayerData pd = new PlayerData();    
 
     public Direction direction = Direction.Stand;
 
@@ -28,13 +28,27 @@ public abstract class Player : MonoBehaviour
 
     public abstract void Initialize();
 
-    public virtual void Move()
+    public float HP
+    {
+        get { return pd.hp; }
+        set { pd.hp = value; }
+    }
+    void Update()
+    {
+        Move();
+        if(HP <= 0)
+        {
+            Die();
+        }
+        Debug.Log(HP);
+    }
+    public void Move()
     {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
         
         Vector3 dir = new Vector3(x, y, 0f);
-        transform.Translate(dir * Time.deltaTime * pt.speed);
+        transform.Translate(dir * Time.deltaTime * pd.speed);
 
         if(x < 0)
         {
@@ -56,5 +70,10 @@ public abstract class Player : MonoBehaviour
             direction = Direction.Stand;
             GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);
         }        
+    }
+
+    void Die()
+    {
+        GetComponent<SpriteAnimation>().SetSprite(dieSp, 0.2f);
     }
 }

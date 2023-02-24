@@ -33,16 +33,28 @@ public abstract class Enemy : MonoBehaviour
     void Update()
     {
         Move();
+
+        
     }
 
     public void Move()
     {
-        if(ed.player != null)
+        Vector3 distance = ed.player.transform.position - transform.position;
+        float dis = Vector3.Distance(transform.position, ed.player.transform.position);
+
+        if (ed.player != null)
         {
-            Vector3 distance = ed.player.transform.position - transform.position;
-            
-            transform.Translate(Time.deltaTime * ed.speed * distance.normalized);
-            if(distance.normalized.x < 0)
+            if(dis > 1f)
+            {
+                transform.Translate(Time.deltaTime * ed.speed * distance.normalized);
+                
+
+            }
+            else
+            {
+                Damage();
+            }
+            if (distance.normalized.x < 0)
             {
                 GetComponent<SpriteRenderer>().flipX = true;
             }
@@ -55,6 +67,20 @@ public abstract class Enemy : MonoBehaviour
                 ed.state = EnemyState.Run;
                 GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
             }
+            
         }    
+    }
+
+    public void Damage()
+    {
+
+        attDelay += Time.deltaTime;
+        if(attDelay > 0.5f)
+        {
+            attDelay = 0;
+            ed.state = EnemyState.Hit;
+            GetComponent<SpriteAnimation>().SetSprite(hitSp);
+            ed.player.GetComponent<Player>().HP -= ed.attack;
+        }
     }
 }
