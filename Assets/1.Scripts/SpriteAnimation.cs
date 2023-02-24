@@ -42,13 +42,13 @@ public class SpriteAnimation : MonoBehaviour
         spriteIndex = 0;
     }
 
-    public void SetSprite(Sprite argSprite)
+    public void SetSprite(Sprite argSprite, float delay)
     {
         delayTime += Time.deltaTime;
-        if(delayTime > 0.5f)
+        if(delayTime > spriteDelayTime)
         {
             delayTime = 0;
-            sr.sprite = argSprite;
+            sr.sprite = argSprite;            
         }
     }
 }

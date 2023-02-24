@@ -7,14 +7,8 @@ public class Zombie : Enemy
     public override void Initialize()
     {
         ed.hp = 100;
-        ed.speed = 3f;
-        ed.attack = 5f;
+        ed.speed = 2f;
+        ed.attack = 10f;
         ed.player = FindAnyObjectByType<Player>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Initialize();
     }
 }

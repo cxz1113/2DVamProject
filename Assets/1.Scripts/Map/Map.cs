@@ -35,7 +35,7 @@ public class Map : MonoBehaviour
         }
         else if (distanceX > distanceY)
         {
-            if(playerPos.x > 0)
+            if (playerPos.x > 0)
             {
                 transform.Translate(Vector3.right * 40);
             }
@@ -46,7 +46,7 @@ public class Map : MonoBehaviour
         }
         else if (distanceX < distanceY)
         {
-            if(playerPos.y > 0)
+            if (playerPos.y > 0)
             {
                 transform.Translate(Vector3.up * 40);
             }
@@ -54,6 +54,6 @@ public class Map : MonoBehaviour
             {
                 transform.Translate(Vector3.down * 40);
             }
-        }        
+        }
     }
 }

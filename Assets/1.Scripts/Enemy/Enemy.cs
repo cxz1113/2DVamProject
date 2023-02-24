@@ -32,9 +32,7 @@ public abstract class Enemy : MonoBehaviour
 
     void Update()
     {
-        Move();
-
-        
+        Move();        
     }
 
     public void Move()
@@ -46,11 +44,9 @@ public abstract class Enemy : MonoBehaviour
         {
             if(dis > 1f)
             {
-                transform.Translate(Time.deltaTime * ed.speed * distance.normalized);
-                
-
+                transform.Translate(Time.deltaTime * ed.speed * distance.normalized);            
             }
-            else
+            else if(dis < 1.5f)
             {
                 Damage();
             }
@@ -73,13 +69,11 @@ public abstract class Enemy : MonoBehaviour
 
     public void Damage()
     {
-
         attDelay += Time.deltaTime;
         if(attDelay > 0.5f)
         {
             attDelay = 0;
             ed.state = EnemyState.Hit;
-            GetComponent<SpriteAnimation>().SetSprite(hitSp);
             ed.player.GetComponent<Player>().HP -= ed.attack;
         }
     }

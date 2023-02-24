@@ -25,13 +25,18 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> dieSp;
     [SerializeField] private SpriteRenderer sr;
-
+    [SerializeField] private Transform parent;
+    [SerializeField] private Weapon weapon;
     public abstract void Initialize();
 
     public float HP
     {
         get { return pd.hp; }
         set { pd.hp = value; }
+    }
+    void Start()
+    {
+        InvokeRepeating("BulletCreat", 2f, 0.3f);
     }
     void Update()
     {
@@ -40,7 +45,6 @@ public abstract class Player : MonoBehaviour
         {
             Die();
         }
-        Debug.Log(HP);
     }
     public void Move()
     {
@@ -72,6 +76,12 @@ public abstract class Player : MonoBehaviour
         }        
     }
 
+    void BulletCreat()
+    {
+        Weapon wp = Instantiate(weapon, transform);
+        wp.transform.SetParent(parent);
+        wp.Initialize();
+    }
     void Die()
     {
         GetComponent<SpriteAnimation>().SetSprite(dieSp, 0.2f);

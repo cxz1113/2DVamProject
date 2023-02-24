@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public struct WeaponData
+{
+    public float attack;
+    public float speed;
+}
+
+public enum WeaponDataType
+{
+    Shovel,
+    Spear,
+    Slasher,
+    Gun,
+    Rifle,
+    ShotGun
+}
+public abstract class Weapon : MonoBehaviour
+{
+    public WeaponData wd = new WeaponData();
+    public WeaponDataType weaponDataType = WeaponDataType.Shovel;
+
+    public abstract void Initialize();
+
+    public virtual void Move()
+    {
+        transform.Translate(new Vector2(0f, Time.deltaTime * wd.speed));
+    }
+    void Update()
+    {
+        Move();
+    }
+    
+}
