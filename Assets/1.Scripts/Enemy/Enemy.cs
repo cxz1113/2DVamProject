@@ -73,7 +73,6 @@ public abstract class Enemy : MonoBehaviour
         if(attDelay > 0.5f)
         {
             attDelay = 0;
-            ed.state = EnemyState.Hit;
             ed.player.GetComponent<Player>().HP -= ed.attack;
         }
     }

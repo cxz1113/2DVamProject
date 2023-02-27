@@ -11,8 +11,4 @@ public class Shovel : Weapon
         weaponDataType = WeaponDataType.Shovel;
     }
 
-    public override void Move()
-    {
-        base.Move();
-    }
 }

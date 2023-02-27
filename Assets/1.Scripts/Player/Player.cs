@@ -7,6 +7,7 @@ public struct PlayerData
     public float hp;
     public float speed;
     public float attack;
+    public Enemy enemy;
 }
 public enum Direction
 {
@@ -25,8 +26,10 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> dieSp;
     [SerializeField] private SpriteRenderer sr;
-    [SerializeField] private Transform parent;
     [SerializeField] private Weapon weapon;
+    [SerializeField] private Transform parent;
+    [SerializeField] private Transform bulletPos;
+    Enemy enemy;
     public abstract void Initialize();
 
     public float HP
@@ -34,9 +37,12 @@ public abstract class Player : MonoBehaviour
         get { return pd.hp; }
         set { pd.hp = value; }
     }
+
+    float fireTime = 0;
+    float deleteTime = 0;
+
     void Start()
     {
-        InvokeRepeating("BulletCreat", 2f, 0.3f);
     }
     void Update()
     {
@@ -45,6 +51,9 @@ public abstract class Player : MonoBehaviour
         {
             Die();
         }
+        FindEnemy();
+        BulletRotate();
+
     }
     public void Move()
     {
@@ -63,7 +72,7 @@ public abstract class Player : MonoBehaviour
             sr.flipX = false;
         }
         // 왼쪽 또는 오른쪽 이동시 Sprite 사용
-        if((x != 0 || y != 0)&& direction != Direction.Run)
+        if((x != 0 || y != 0) && direction != Direction.Run)
         {
             direction = Direction.Run;
             GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
@@ -73,14 +82,53 @@ public abstract class Player : MonoBehaviour
         {
             direction = Direction.Stand;
             GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);
-        }        
+        }
+        fireTime += Time.deltaTime;
+        if(fireTime > 1f)
+        {
+            fireTime = 0;
+            BulletCreat();
+        }
     }
 
+    void BulletRotate()
+    {
+        if(enemy != null)
+        {
+            Vector2 vec = transform.position - enemy.transform.position;
+            float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+            bulletPos.rotation = rotation;
+        }    
+    }
+    
+
+    void FindEnemy()
+    {
+        Enemy[] targets = FindObjectsOfType<Enemy>();
+
+        if (targets.Length == 0)
+            return;       
+        
+        foreach(var target in targets)
+        {
+            float dis = Vector3.Distance(transform.position, target.transform.position);
+            if(dis < 6)
+            {
+                enemy = target;
+            }
+        }      
+    }
     void BulletCreat()
     {
-        Weapon wp = Instantiate(weapon, transform);
-        wp.transform.SetParent(parent);
-        wp.Initialize();
+        if (enemy != null)
+        {            
+            Weapon wp = Instantiate(weapon, bulletPos);
+            wp.transform.SetParent(parent);
+            wp.Initialize();
+        }
+        
+        
     }
     void Die()
     {
