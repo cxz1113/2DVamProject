@@ -52,8 +52,6 @@ public abstract class Player : MonoBehaviour
             Die();
         }
         FindEnemy();
-        BulletRotate();
-
     }
     public void Move()
     {
@@ -91,44 +89,35 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-    void BulletRotate()
-    {
-        if(enemy != null)
-        {
-            Vector2 vec = transform.position - enemy.transform.position;
-            float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-            bulletPos.rotation = rotation;
-        }    
-    }
-    
-
     void FindEnemy()
     {
         Enemy[] targets = FindObjectsOfType<Enemy>();
 
         if (targets.Length == 0)
-            return;       
-        
-        foreach(var target in targets)
+            return;
+        float dis = Vector3.Distance(transform.position, targets[0].transform.position);
+        foreach (var target in targets)
         {
-            float dis = Vector3.Distance(transform.position, target.transform.position);
-            if(dis < 6)
+            float distance = Vector3.Distance(transform.position, target.transform.position);
+            if(distance < dis)
             {
                 enemy = target;
+                dis = distance;
             }
         }      
     }
     void BulletCreat()
     {
         if (enemy != null)
-        {            
-            Weapon wp = Instantiate(weapon, bulletPos);
+        {  
+            Vector2 vec = transform.position - enemy.transform.position;
+            float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+            //bulletPos.rotation = rotation;
+            Weapon wp = Instantiate(weapon, bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
             wp.transform.SetParent(parent);
             wp.Initialize();
-        }
-        
-        
+        }              
     }
     void Die()
     {

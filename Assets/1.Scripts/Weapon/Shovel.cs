@@ -7,7 +7,7 @@ public class Shovel : Weapon
     public override void Initialize()
     {
         wd.attack = 5;
-        wd.speed = 1.5f;
+        wd.speed = 10f;
         weaponDataType = WeaponDataType.Shovel;
     }
 
