@@ -5,6 +5,12 @@ public class Map : MonoBehaviour
 {
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (transform.CompareTag("Area"))
+            return;
+        else if (collision.CompareTag("Enemy"))
+            return;
+        else if (collision.CompareTag("Bullet"))
+            return;
         Vector3 playerPos = GameControllerManager.instance.player.transform.position;
         Vector3 mapPos = transform.position;
 
@@ -14,46 +20,47 @@ public class Map : MonoBehaviour
         playerPos.x = Input.GetAxisRaw("Horizontal");
         playerPos.y = Input.GetAxisRaw("Vertical");
 
-        if (Mathf.Abs(distanceX - distanceY) <= 0.1f)
-        {
-            if (playerPos.x > 0)
+        
+            if (Mathf.Abs(distanceX - distanceY) <= 0.1f)
             {
-                transform.Translate(Vector3.right * 40);
+                if (playerPos.x > 0)
+                {
+                    transform.Translate(Vector3.right * 40);
+                }
+                else
+                {
+                    transform.Translate(Vector3.left * 40);
+                }
+                if (playerPos.y > 0)
+                {
+                    transform.Translate(Vector3.up * 40);
+                }
+                else
+                {
+                    transform.Translate(Vector3.down * 40);
+                }
             }
-            else
+            else if (distanceX > distanceY)
             {
-                transform.Translate(Vector3.left * 40);
+                if (playerPos.x > 0)
+                {
+                    transform.Translate(Vector3.right * 40);
+                }
+                else
+                {
+                    transform.Translate(Vector3.left * 40);
+                }
             }
-            if (playerPos.y > 0)
+            else if (distanceX < distanceY)
             {
-                transform.Translate(Vector3.up * 40);
-            }
-            else
-            {
-                transform.Translate(Vector3.down * 40);
-            }
-        }
-        else if (distanceX > distanceY)
-        {
-            if (playerPos.x > 0)
-            {
-                transform.Translate(Vector3.right * 40);
-            }
-            else
-            {
-                transform.Translate(Vector3.left * 40);
-            }
-        }
-        else if (distanceX < distanceY)
-        {
-            if (playerPos.y > 0)
-            {
-                transform.Translate(Vector3.up * 40);
-            }
-            else
-            {
-                transform.Translate(Vector3.down * 40);
-            }
-        }
+                if (playerPos.y > 0)
+                {
+                    transform.Translate(Vector3.up * 40);
+                }
+                else
+                {
+                    transform.Translate(Vector3.down * 40);
+                }
+            }       
     }
 }

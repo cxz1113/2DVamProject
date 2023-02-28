@@ -22,7 +22,7 @@ public class SpawnManager : MonoBehaviour
     {
         int rand = Random.Range(0, prefabs.Length);
         int transRand = Random.Range(0, trans.Length);
-        Enemy enemy = Instantiate(prefabs[rand],trans[transRand]);
+        Enemy enemy = Instantiate(prefabs[0],trans[transRand]);
         enemy.Initialize();
         enemy.transform.SetParent(parent);
     }

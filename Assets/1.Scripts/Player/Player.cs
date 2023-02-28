@@ -39,7 +39,6 @@ public abstract class Player : MonoBehaviour
     }
 
     float fireTime = 0;
-    float deleteTime = 0;
 
     void Start()
     {

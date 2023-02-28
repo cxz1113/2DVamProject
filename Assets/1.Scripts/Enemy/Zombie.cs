@@ -6,7 +6,8 @@ public class Zombie : Enemy
 {
     public override void Initialize()
     {
-        ed.hp = 100;
+        ed.maxHp = 100;
+        ed.curHp = ed.maxHp;
         ed.speed = 2f;
         ed.attack = 10f;
         ed.player = FindAnyObjectByType<Player>();

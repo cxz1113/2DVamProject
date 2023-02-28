@@ -6,7 +6,8 @@ public class Skeleton : Enemy
 {
     public override void Initialize()
     {
-        ed.hp = 100;
+        ed.maxHp = 100;
+        ed.curHp = ed.maxHp;
         ed.speed = 3f;
         ed.attack = 7.5f;
         ed.player = FindAnyObjectByType<Player>();

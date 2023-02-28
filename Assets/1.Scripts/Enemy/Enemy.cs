@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum EnemyState
 {
@@ -12,7 +13,8 @@ public enum EnemyState
 
 public struct EnemyData
 {
-    public int hp;
+    public float maxHp;
+    public float curHp;
     public float speed;
     public float attack;
     public Player player;
@@ -27,12 +29,34 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private Sprite hitSp;
     [SerializeField] private Sprite dieSp;
+    [SerializeField] private Image hpImage;
 
     float attDelay = 0;
+    float dieDelay = 0;
+
+    public float HP
+    {
+        get { return ed.curHp; }
+        set
+        {
+            ed.curHp = value;
+            hpImage.fillAmount = ed.curHp / ed.maxHp;
+            if(ed.curHp <= 0)
+            {
+
+                GetComponent<SpriteRenderer>().sprite = dieSp;
+                dieDelay += Time.deltaTime;
+                if(dieDelay > 2)
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
+    }
 
     void Update()
     {
-        Move();        
+        Move(); 
     }
 
     public void Move()
@@ -48,7 +72,7 @@ public abstract class Enemy : MonoBehaviour
             }
             else if(dis < 1.5f)
             {
-                Damage();
+                attack();
             }
             if (distance.normalized.x < 0)
             {
@@ -67,7 +91,19 @@ public abstract class Enemy : MonoBehaviour
         }    
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Bullet"))
+        {
+            GetComponent<SpriteAnimation>().SetSprite(hitSp, moveSp, 0.2f);            
+            HP -= collision.GetComponent<Weapon>().wd.attack;            
+        }
+    }
     public void Damage()
+    {
+
+    }
+    public void attack()
     {
         attDelay += Time.deltaTime;
         if(attDelay > 0.5f)

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class SpriteAnimation : MonoBehaviour
 {
     private List<Sprite> sprites = new List<Sprite>();
@@ -35,20 +35,29 @@ public class SpriteAnimation : MonoBehaviour
         }
     }
 
-    public void SetSprite(List<Sprite> sprite, float delay)
+    void Init()
     {
-        sprites = sprite;
-        spriteDelayTime = delay;
+        delayTime = 0f;
+        sprites.Clear();
         spriteIndex = 0;
     }
-
-    public void SetSprite(Sprite argSprite, float delay)
+    public void SetSprite(List<Sprite> argSprites, float delay)
     {
-        delayTime += Time.deltaTime;
-        if(delayTime > spriteDelayTime)
-        {
-            delayTime = 0;
-            sr.sprite = argSprite;            
-        }
+        Init();
+        sprites = argSprites.ToList();
+        spriteDelayTime = delay;
+    }
+
+    public void SetSprite(Sprite sprite, List<Sprite> argSprites, float delay)
+    {
+        Init();
+        sprites.Clear();
+        sr.sprite = sprite;
+        StartCoroutine(ReturnSprite(argSprites, delay));
+    }
+    IEnumerator ReturnSprite(List<Sprite> argSprites, float delay)
+    {
+        yield return new WaitForSeconds(0.01f);
+        SetSprite(argSprites, delay);
     }
 }
