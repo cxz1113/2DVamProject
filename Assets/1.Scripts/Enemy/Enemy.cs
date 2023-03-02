@@ -17,6 +17,7 @@ public struct EnemyData
     public float curHp;
     public float speed;
     public float attack;
+    public float score;
     public Player player;
     public EnemyState state;
 }
@@ -27,8 +28,8 @@ public abstract class Enemy : MonoBehaviour
     public abstract void Initialize();
 
     [SerializeField] private List<Sprite> moveSp;
-    [SerializeField] private Sprite hitSp;
-    [SerializeField] private Sprite dieSp;
+    [SerializeField] private List<Sprite> hitSp;
+    [SerializeField] private List<Sprite> dieSp;
     [SerializeField] private Image hpImage;
 
     float attDelay = 0;
@@ -39,22 +40,35 @@ public abstract class Enemy : MonoBehaviour
     {
         get { return ed.curHp; }
         set
-        {
+        {            
             ed.curHp = value;
-            hpImage.fillAmount = ed.curHp / ed.maxHp;            
+            hpImage.fillAmount = ed.curHp / ed.maxHp;   
+            if(ed.curHp <= 0)
+            {
+                IsAlive = false;
+                ed.player.CurExperience += ed.score;
+                Die();
+            }
+            Debug.Log(ed.curHp);
         }
     }
 
     void Update()
     {
-        Move();
-        if(HP <= 0)
+        if (!IsAlive)
+            return;
+
+        moveSaveTime += Time.deltaTime;
+        if (moveSaveTime > 0.1f)
         {
-            IsAlive = false;
-            Die();
+            moveSaving.Push(transform.position);
+            moveSaveTime = 0;
         }
+        Move();
     }
 
+    Stack<Vector2> moveSaving = new Stack<Vector2>();
+    float moveSaveTime = 0;
     public void Move()
     {
         Vector3 distance = ed.player.transform.position - transform.position;
@@ -89,15 +103,42 @@ public abstract class Enemy : MonoBehaviour
                 ed.state = EnemyState.Dead;
                 transform.position = new Vector2(transform.position.x, transform.position.y);
             }
-        }    
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
-        {            
-            GetComponent<SpriteAnimation>().SetSprite(hitSp, moveSp, 0.2f);
+        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet"))
+        {
+            GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
             HP -= collision.gameObject.GetComponent<Weapon>().wd.attack;
+            StopCoroutine("BackMove");
+            StartCoroutine("BackMove");
         }
+    }
+
+    IEnumerator BackMove()
+    {
+        int count = 5;
+        while(true)
+        {
+            if (!IsAlive)
+                break;
+            yield return new WaitForSeconds(0.05f);
+            if (count <= 0)
+                break;
+
+            if (moveSaving.Count == 0)
+                break;
+
+            transform.position = moveSaving.Pop();
+
+            count--;
+        }
+        moveSaving.Clear();
     }
 
     public void attack()
@@ -106,21 +147,17 @@ public abstract class Enemy : MonoBehaviour
         if(attDelay > 0.5f)
         {
             attDelay = 0;
-            ed.player.GetComponent<Player>().HP -= ed.attack;
+            ed.player.HP -= ed.attack;
         }
     }
     public void Die()
     {
         if(!IsAlive)
-        {
+        {            
             GetComponent<CapsuleCollider2D>().isTrigger = true;
             GetComponent<Rigidbody2D>().position = new Vector2(transform.position.x, transform.position.y);
-            GetComponent<SpriteRenderer>().sprite = dieSp;
-            dieDelay += Time.deltaTime;
-            if (dieDelay > 3)
-            {
-                Destroy(gameObject);
-            }
+            GetComponent<SpriteAnimation>().SetSprite(dieSp[0], dieSp, 0.2f);
+            Destroy(gameObject, 2f);
         }        
     }
 }

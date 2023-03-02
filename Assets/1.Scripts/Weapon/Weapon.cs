@@ -21,8 +21,6 @@ public abstract class Weapon : MonoBehaviour
 {
     public WeaponData wd = new WeaponData();
     public WeaponDataType weaponDataType = WeaponDataType.Shovel;
-
-    float deleteTime = 0;
     public abstract void Initialize();
 
     public virtual void Move()
@@ -30,28 +28,8 @@ public abstract class Weapon : MonoBehaviour
         transform.Translate(Vector2.up * Time.deltaTime * wd.speed);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Enemy")
-        {
-            StartCoroutine("BulletDelete");
-        }
-    }
-
     void Update()
     {
         Move();
-        deleteTime += Time.deltaTime;
-        if(deleteTime > 5)
-        {
-            deleteTime = 0;
-            Destroy(gameObject);
-        }
-    }
-    
-    IEnumerator BulletDelete()
-    {
-        yield return new WaitForSeconds(0.05f);
-        Destroy(gameObject);
     }
 }

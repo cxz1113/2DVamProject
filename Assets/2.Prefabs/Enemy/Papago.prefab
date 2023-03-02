@@ -207,8 +207,10 @@ MonoBehaviour:
   - {fileID: -140220566, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
   - {fileID: 1611109861, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
   - {fileID: 1488126946, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
-  hitSp: {fileID: -392852972, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
-  dieSp: {fileID: 1261089785, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+  hitSp:
+  - {fileID: -392852972, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+  dieSp:
+  - {fileID: 1261089785, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
   hpImage: {fileID: 6616764329772556829}
 --- !u!114 &6422102699004633031
 MonoBehaviour:

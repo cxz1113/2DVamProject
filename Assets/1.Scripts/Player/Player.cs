@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct PlayerData
 {
-    public float hp;
+    public float maxHp;
+    public float curHp;
     public float speed;
     public float attack;
+    public int level;
+    public float maxExperience;
+    public float curExperience;
     public Enemy enemy;
 }
 public enum Direction
@@ -29,15 +34,39 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private Weapon weapon;
     [SerializeField] private Transform parent;
     [SerializeField] private Transform bulletPos;
+    [SerializeField] private Image exImage;
     Enemy enemy;
     public abstract void Initialize();
 
     public float HP
     {
-        get { return pd.hp; }
-        set { pd.hp = value; }
+        get { return pd.curHp; }
+        set 
+        { 
+            pd.curHp = value;
+            if(HP <= 0 && IsAlive)
+            {
+                IsAlive = false;
+                Die();
+            }            
+        }
     }
 
+    public float CurExperience
+    {
+        get { return pd.curExperience; }
+        set
+        {
+            pd.curExperience = value;
+            exImage.fillAmount = pd.curExperience / pd.maxExperience;
+            if(pd.curExperience >= pd.maxExperience)
+            {
+                pd.level++;
+                pd.curExperience = 0;
+            }
+        }
+    }
+    
     public bool IsAlive { get; set; }
     float fireTime = 0;
 
@@ -46,13 +75,18 @@ public abstract class Player : MonoBehaviour
     }
     void Update()
     {
+        if (!IsAlive)
+            return;
+
         Move();
-        if(HP <= 0)
-        {
-            IsAlive = false;
-            Die();
-        }
         FindEnemy();
+
+        fireTime += Time.deltaTime;
+        if (fireTime > 1f)
+        {
+            fireTime = 0;
+            BulletCreat();
+        }
     }
     public void Move()
     {
@@ -82,12 +116,6 @@ public abstract class Player : MonoBehaviour
             direction = Direction.Stand;
             GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);
         }
-        fireTime += Time.deltaTime;
-        if(fireTime > 1f)
-        {
-            fireTime = 0;
-            BulletCreat();
-        }
     }
 
     void FindEnemy()
@@ -114,10 +142,13 @@ public abstract class Player : MonoBehaviour
             Vector2 vec = transform.position - enemy.transform.position;
             float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-            //bulletPos.rotation = rotation;
-            Weapon wp = Instantiate(weapon, bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
+            bulletPos.rotation = rotation;
+
+            //Weapon wp = Instantiate(weapon, bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
+            Weapon wp = Instantiate(weapon, bulletPos.transform);
             wp.transform.SetParent(parent);
             wp.Initialize();
+            Destroy(wp.gameObject, 5f);
         }              
     }
     void Die()

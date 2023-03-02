@@ -10,6 +10,7 @@ public class Papago : Enemy
         ed.curHp = ed.maxHp;
         ed.speed = 2.5f;
         ed.attack = 5f;
+        ed.score = 50;
         ed.player = FindAnyObjectByType<Player>();
         IsAlive = true;
     }

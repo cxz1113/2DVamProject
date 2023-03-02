@@ -10,6 +10,7 @@ public class Zombie : Enemy
         ed.curHp = ed.maxHp;
         ed.speed = 2f;
         ed.attack = 10f;
+        ed.score = 100;
         ed.player = FindAnyObjectByType<Player>();
         IsAlive = true;
     }

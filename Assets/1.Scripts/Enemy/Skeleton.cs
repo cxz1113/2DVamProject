@@ -10,6 +10,7 @@ public class Skeleton : Enemy
         ed.curHp = ed.maxHp;
         ed.speed = 3f;
         ed.attack = 7.5f;
+        ed.score = 150;
         ed.player = FindAnyObjectByType<Player>();
         IsAlive = true;
     }

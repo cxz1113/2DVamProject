@@ -310,8 +310,10 @@ MonoBehaviour:
   - {fileID: 66914582, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
   - {fileID: 1243161592, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
   - {fileID: -1524729577, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
-  hitSp: {fileID: 194153472, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
-  dieSp: {fileID: -2007313318, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
+  hitSp:
+  - {fileID: 194153472, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
+  dieSp:
+  - {fileID: -2007313318, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
   hpImage: {fileID: 8382985533537088331}
 --- !u!114 &223781771805954934
 MonoBehaviour:

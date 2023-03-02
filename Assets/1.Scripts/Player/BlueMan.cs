@@ -6,9 +6,13 @@ public class BlueMan : Player
 {
     public override void Initialize()
     {
-        pd.hp = 100;
+        pd.maxHp = 100;
+        pd.curHp = pd.maxHp;
         pd.speed = 4.5f;
         pd.attack = 5;
+        pd.level = 1;
+        pd.maxExperience = 1000;
+        pd.curExperience = 0;
         pd.enemy = FindAnyObjectByType<Enemy>();
         IsAlive = true;
     }
