@@ -29,7 +29,15 @@ public abstract class Weapon : MonoBehaviour
     {
         transform.Translate(Vector2.up * Time.deltaTime * wd.speed);
     }
-    
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            StartCoroutine("BulletDelete");
+        }
+    }
+
     void Update()
     {
         Move();
@@ -39,5 +47,11 @@ public abstract class Weapon : MonoBehaviour
             deleteTime = 0;
             Destroy(gameObject);
         }
+    }
+    
+    IEnumerator BulletDelete()
+    {
+        yield return new WaitForSeconds(0.05f);
+        Destroy(gameObject);
     }
 }

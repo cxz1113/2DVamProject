@@ -9,6 +9,7 @@ public class RedWoman : Player
         pd.hp = 50;
         pd.speed = 7f;
         pd.attack = 10f;
+        IsAlive = true;
     }
 
     // Start is called before the first frame update

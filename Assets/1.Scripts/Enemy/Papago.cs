@@ -11,5 +11,6 @@ public class Papago : Enemy
         ed.speed = 2.5f;
         ed.attack = 5f;
         ed.player = FindAnyObjectByType<Player>();
+        IsAlive = true;
     }
 }

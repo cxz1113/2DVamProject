@@ -10,6 +10,7 @@ public class BlueMan : Player
         pd.speed = 4.5f;
         pd.attack = 5;
         pd.enemy = FindAnyObjectByType<Enemy>();
+        IsAlive = true;
     }
 
     void Start()

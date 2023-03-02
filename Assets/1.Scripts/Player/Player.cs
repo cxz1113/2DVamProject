@@ -38,6 +38,7 @@ public abstract class Player : MonoBehaviour
         set { pd.hp = value; }
     }
 
+    public bool IsAlive { get; set; }
     float fireTime = 0;
 
     void Start()
@@ -48,6 +49,7 @@ public abstract class Player : MonoBehaviour
         Move();
         if(HP <= 0)
         {
+            IsAlive = false;
             Die();
         }
         FindEnemy();
@@ -120,6 +122,10 @@ public abstract class Player : MonoBehaviour
     }
     void Die()
     {
-        GetComponent<SpriteAnimation>().SetSprite(dieSp, 0.2f);
+        if(!IsAlive)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
+            GetComponent<SpriteAnimation>().SetSprite(dieSp, 0.2f);
+        }
     }
 }

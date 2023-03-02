@@ -34,29 +34,25 @@ public abstract class Enemy : MonoBehaviour
     float attDelay = 0;
     float dieDelay = 0;
 
+    public bool IsAlive { get; set; }
     public float HP
     {
         get { return ed.curHp; }
         set
         {
             ed.curHp = value;
-            hpImage.fillAmount = ed.curHp / ed.maxHp;
-            if(ed.curHp <= 0)
-            {
-
-                GetComponent<SpriteRenderer>().sprite = dieSp;
-                dieDelay += Time.deltaTime;
-                if(dieDelay > 2)
-                {
-                    Destroy(gameObject);
-                }
-            }
+            hpImage.fillAmount = ed.curHp / ed.maxHp;            
         }
     }
 
     void Update()
     {
-        Move(); 
+        Move();
+        if(HP <= 0)
+        {
+            IsAlive = false;
+            Die();
+        }
     }
 
     public void Move()
@@ -66,43 +62,44 @@ public abstract class Enemy : MonoBehaviour
 
         if (ed.player != null)
         {
-            if(dis > 1f)
+            if(IsAlive && dis > 1f)
             {
-                transform.Translate(Time.deltaTime * ed.speed * distance.normalized);            
+                transform.Translate(Time.deltaTime * ed.speed * distance.normalized);
+                if (distance.normalized.x < 0)
+                {
+                    GetComponent<SpriteRenderer>().flipX = true;
+                }
+                else
+                {
+                    GetComponent<SpriteRenderer>().flipX = false;
+                }
+                if (ed.state != EnemyState.Run)
+                {
+                    ed.state = EnemyState.Run;
+                    GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
+                }
             }
             else if(dis < 1.5f)
             {
                 attack();
-            }
-            if (distance.normalized.x < 0)
-            {
-                GetComponent<SpriteRenderer>().flipX = true;
-            }
-            else
-            {
-                GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (ed.state != EnemyState.Run)
-            {
-                ed.state = EnemyState.Run;
-                GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
-            }
+            }           
             
+            else if(!IsAlive && ed.state != EnemyState.Dead)
+            {
+                ed.state = EnemyState.Dead;
+                transform.position = new Vector2(transform.position.x, transform.position.y);
+            }
         }    
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.CompareTag("Bullet"))
-        {
-            GetComponent<SpriteAnimation>().SetSprite(hitSp, moveSp, 0.2f);            
-            HP -= collision.GetComponent<Weapon>().wd.attack;            
+        if (collision.gameObject.tag == "Bullet")
+        {            
+            GetComponent<SpriteAnimation>().SetSprite(hitSp, moveSp, 0.2f);
+            HP -= collision.gameObject.GetComponent<Weapon>().wd.attack;
         }
     }
-    public void Damage()
-    {
 
-    }
     public void attack()
     {
         attDelay += Time.deltaTime;
@@ -111,5 +108,19 @@ public abstract class Enemy : MonoBehaviour
             attDelay = 0;
             ed.player.GetComponent<Player>().HP -= ed.attack;
         }
+    }
+    public void Die()
+    {
+        if(!IsAlive)
+        {
+            GetComponent<CapsuleCollider2D>().isTrigger = true;
+            GetComponent<Rigidbody2D>().position = new Vector2(transform.position.x, transform.position.y);
+            GetComponent<SpriteRenderer>().sprite = dieSp;
+            dieDelay += Time.deltaTime;
+            if (dieDelay > 3)
+            {
+                Destroy(gameObject);
+            }
+        }        
     }
 }
