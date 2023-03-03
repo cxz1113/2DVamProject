@@ -11,6 +11,7 @@ public class Skeleton : Enemy
         ed.speed = 3f;
         ed.attack = 7.5f;
         ed.score = 150;
+        ed.level = 1;
         ed.player = FindAnyObjectByType<Player>();
         IsAlive = true;
     }

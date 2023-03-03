@@ -21,12 +21,21 @@ public enum Direction
     Die
 }
 
+public enum PdLevelSystem
+{
+    None,
+    MaxHp,
+    MaxExperience,
+    Attack,
+    Speed,
+}
 public abstract class Player : MonoBehaviour
 {
     public PlayerData pd = new PlayerData();    
 
     public Direction direction = Direction.Stand;
 
+    public PdLevelSystem pdlv = PdLevelSystem.None;
     [SerializeField] public List<Sprite> idleSp;
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> dieSp;
@@ -53,6 +62,7 @@ public abstract class Player : MonoBehaviour
                 IsAlive = false;
                 Die();
             }
+            Debug.Log(HP);
         }
     }
 
@@ -65,20 +75,24 @@ public abstract class Player : MonoBehaviour
             exImage.fillAmount = pd.curExperience / pd.maxExperience;
             if(pd.curExperience >= pd.maxExperience)
             {
+                IsLevel = true;
                 pd.level++;
-                pd.curExperience = 0;
-                pd.maxExperience += ((pd.level * (pd.level + 1)) * 25) - 50;                
+                LevelUp();
+                pd.curHp = pd.maxHp;
+                
             }
+            IsLevel = false;
+            Debug.Log(HP);
+            Debug.Log(pd.attack);
+            Debug.Log(pd.speed);
             Debug.Log(pd.maxExperience);
         }
     }
     
     public bool IsAlive { get; set; }
+    public bool IsLevel { get; set; }
     float fireTime = 0;
 
-    void Start()
-    {
-    }
     void Update()
     {
         if (!IsAlive)
@@ -145,6 +159,18 @@ public abstract class Player : MonoBehaviour
             }
         }      
     }
+
+    void LevelUp()
+    {
+        if (IsLevel)
+        {
+            pd.curExperience = 0;
+            pd.maxHp += ((pd.level + (pd.level + 1)) * 25) - 25;
+            pd.maxExperience += ((pd.level * (pd.level + 1)) * 25) - 50;
+            pd.attack += ((pd.level * (pd.level + 1)) * 10) / 100;
+            pd.speed += ((pd.level * (pd.level + 1)) * 0.5f) / 100;
+        }
+    }
     void BulletCreat()
     {
         if (enemy != null)
@@ -163,25 +189,27 @@ public abstract class Player : MonoBehaviour
         }              
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {        
-        if(collision.CompareTag("Enemy"))
-        {            
-            hpCanvas.GetComponent<Canvas>().enabled = true;
-            HP -= collision.GetComponent<Enemy>().ed.attack;
-        }        
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            hpCanvas.gameObject.SetActive(true);
+            HP -= collision.gameObject.GetComponent<Enemy>().ed.attack;
+            StartCoroutine("ReLife");
+        }
     }
 
     IEnumerator ReLife()
     {
         bool show = false;
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 10; i++)
         {
-            GetComponent<Image>().color = new Color(255, 255, 255, 150 / 255f);
+            GetComponent<SpriteRenderer>().enabled = !show;
             show = !show;
             yield return new WaitForSeconds(0.2f);
         }
-        hpCanvas.GetComponent<Canvas>().enabled = false;        
+        hpCanvas.gameObject.SetActive(false);
+        GetComponent<SpriteRenderer>().enabled = true;
     }
     void Die()
     {

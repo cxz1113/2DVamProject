@@ -6,7 +6,7 @@ public class BlueMan : Player
 {
     public override void Initialize()
     {
-        pd.maxHp = 100;
+        pd.maxHp = 50;
         pd.curHp = pd.maxHp;
         pd.speed = 4.5f;
         pd.attack = 5;

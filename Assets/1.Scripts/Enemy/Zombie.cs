@@ -11,6 +11,7 @@ public class Zombie : Enemy
         ed.speed = 2f;
         ed.attack = 10f;
         ed.score = 100;
+        ed.level = 1;
         ed.player = FindAnyObjectByType<Player>();
         IsAlive = true;
     }

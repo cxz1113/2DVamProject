@@ -18,21 +18,28 @@ public struct EnemyData
     public float speed;
     public float attack;
     public float score;
+    public int level;
     public Player player;
     public EnemyState state;
+}
+
+public enum EdLevelSystem
+{
+    None,
+    MaxHp,
+    Speed,
+    Attack
 }
 public abstract class Enemy : MonoBehaviour
 {
     public EnemyData ed = new EnemyData();
-
+    public EdLevelSystem edlv = EdLevelSystem.None;
     public abstract void Initialize();
 
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> hitSp;
     [SerializeField] private List<Sprite> dieSp;
     [SerializeField] private Image hpImage;
-
-    float attDelay = 0;
 
     public bool IsAlive { get; set; }
     public float HP
@@ -101,21 +108,27 @@ public abstract class Enemy : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Area"))
-            return;
+    {        
         if (collision.CompareTag("Bullet"))
         {
             GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
             HP -= collision.gameObject.GetComponent<Weapon>().wd.attack;
+            Destroy(collision.gameObject);
             StopCoroutine("BackMove");
             StartCoroutine("BackMove");
         }
     }
 
+    public void LevelUp()
+    {
+        
+        ed.maxHp += ((ed.level + (ed.level + 1)) * 25) + 25;
+        ed.attack += ((ed.level * (ed.level + 1)) * 10) / 100;
+        ed.speed += ((ed.level * (ed.level + 1)) * 0.5f) / 100;
+    }
     IEnumerator BackMove()
     {
-        int count = 5;
+        int count = 3;
         while(true)
         {
             if (!IsAlive)
@@ -137,7 +150,8 @@ public abstract class Enemy : MonoBehaviour
     public void Die()
     {
         if(!IsAlive)
-        {            
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
             GetComponent<CapsuleCollider2D>().isTrigger = true;
             GetComponent<Rigidbody2D>().position = new Vector2(transform.position.x, transform.position.y);
             GetComponent<SpriteAnimation>().SetSprite(dieSp[0], dieSp, 0.2f);

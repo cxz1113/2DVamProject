@@ -6,7 +6,7 @@ public class RedWoman : Player
 {
     public override void Initialize()
     {
-        pd.maxHp = 50;
+        pd.maxHp = ((pd.level + (pd.level + 1)) * 25) - 25;
         pd.curHp = pd.maxHp;
         pd.speed = 7f;
         pd.attack = 10f;
