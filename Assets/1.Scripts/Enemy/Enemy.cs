@@ -33,7 +33,6 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private Image hpImage;
 
     float attDelay = 0;
-    float dieDelay = 0;
 
     public bool IsAlive { get; set; }
     public float HP
@@ -49,7 +48,6 @@ public abstract class Enemy : MonoBehaviour
                 ed.player.CurExperience += ed.score;
                 Die();
             }
-            Debug.Log(ed.curHp);
         }
     }
 
@@ -92,11 +90,7 @@ public abstract class Enemy : MonoBehaviour
                     ed.state = EnemyState.Run;
                     GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
                 }
-            }
-            else if(dis < 1.5f)
-            {
-                attack();
-            }           
+            }       
             
             else if(!IsAlive && ed.state != EnemyState.Dead)
             {
@@ -105,12 +99,11 @@ public abstract class Enemy : MonoBehaviour
             }
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Area"))
+            return;
         if (collision.CompareTag("Bullet"))
         {
             GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
@@ -141,15 +134,6 @@ public abstract class Enemy : MonoBehaviour
         moveSaving.Clear();
     }
 
-    public void attack()
-    {
-        attDelay += Time.deltaTime;
-        if(attDelay > 0.5f)
-        {
-            attDelay = 0;
-            ed.player.HP -= ed.attack;
-        }
-    }
     public void Die()
     {
         if(!IsAlive)

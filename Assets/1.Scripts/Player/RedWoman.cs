@@ -11,7 +11,7 @@ public class RedWoman : Player
         pd.speed = 7f;
         pd.attack = 10f;
         pd.level = 1;
-        pd.maxExperience = 1000;
+        pd.maxExperience = ((pd.level * (pd.level + 1)) * 25) - 50;
         pd.curExperience = 0;
         pd.enemy = FindAnyObjectByType<Enemy>();
         IsAlive = true;

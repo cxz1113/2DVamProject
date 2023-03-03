@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public struct PlayerData
 {
     public float maxHp;
@@ -35,6 +35,9 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private Transform parent;
     [SerializeField] private Transform bulletPos;
     [SerializeField] private Image exImage;
+    [SerializeField] private TMP_Text levelTxt;
+    [SerializeField] private Image hpImage;
+    [SerializeField] private Canvas hpCanvas;
     Enemy enemy;
     public abstract void Initialize();
 
@@ -43,12 +46,13 @@ public abstract class Player : MonoBehaviour
         get { return pd.curHp; }
         set 
         { 
-            pd.curHp = value;
+            pd.curHp = value;            
+            hpImage.fillAmount = pd.curHp / pd.maxHp;
             if(HP <= 0 && IsAlive)
             {
                 IsAlive = false;
                 Die();
-            }            
+            }
         }
     }
 
@@ -63,7 +67,9 @@ public abstract class Player : MonoBehaviour
             {
                 pd.level++;
                 pd.curExperience = 0;
+                pd.maxExperience += ((pd.level * (pd.level + 1)) * 25) - 50;                
             }
+            Debug.Log(pd.maxExperience);
         }
     }
     
@@ -77,6 +83,8 @@ public abstract class Player : MonoBehaviour
     {
         if (!IsAlive)
             return;
+
+        levelTxt.text = string.Format("Lv.{0}", pd.level);
 
         Move();
         FindEnemy();
@@ -96,6 +104,7 @@ public abstract class Player : MonoBehaviour
         Vector3 dir = new Vector3(x, y, 0f);
         transform.Translate(dir * Time.deltaTime * pd.speed);
 
+        // FlipX를 이용하여 좌우반전
         if(x < 0)
         {
             sr.flipX = true;
@@ -120,6 +129,7 @@ public abstract class Player : MonoBehaviour
 
     void FindEnemy()
     {
+        // 적 찾기
         Enemy[] targets = FindObjectsOfType<Enemy>();
 
         if (targets.Length == 0)
@@ -139,6 +149,7 @@ public abstract class Player : MonoBehaviour
     {
         if (enemy != null)
         {  
+            // 몬스터 방향으로 Bullet 회전
             Vector2 vec = transform.position - enemy.transform.position;
             float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
@@ -151,11 +162,32 @@ public abstract class Player : MonoBehaviour
             Destroy(wp.gameObject, 5f);
         }              
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {        
+        if(collision.CompareTag("Enemy"))
+        {            
+            hpCanvas.GetComponent<Canvas>().enabled = true;
+            HP -= collision.GetComponent<Enemy>().ed.attack;
+        }        
+    }
+
+    IEnumerator ReLife()
+    {
+        bool show = false;
+        for(int i = 0; i < 5; i++)
+        {
+            GetComponent<Image>().color = new Color(255, 255, 255, 150 / 255f);
+            show = !show;
+            yield return new WaitForSeconds(0.2f);
+        }
+        hpCanvas.GetComponent<Canvas>().enabled = false;        
+    }
     void Die()
     {
         if(!IsAlive)
         {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
+            //GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
             GetComponent<SpriteAnimation>().SetSprite(dieSp, 0.2f);
         }
     }
