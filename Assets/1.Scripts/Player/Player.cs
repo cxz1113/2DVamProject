@@ -62,7 +62,6 @@ public abstract class Player : MonoBehaviour
                 IsAlive = false;
                 Die();
             }
-            Debug.Log(HP);
         }
     }
 
@@ -76,16 +75,10 @@ public abstract class Player : MonoBehaviour
             if(pd.curExperience >= pd.maxExperience)
             {
                 IsLevel = true;
-                pd.level++;
                 LevelUp();
-                pd.curHp = pd.maxHp;
-                
+                pd.curHp = pd.maxHp;                
             }
             IsLevel = false;
-            Debug.Log(HP);
-            Debug.Log(pd.attack);
-            Debug.Log(pd.speed);
-            Debug.Log(pd.maxExperience);
         }
     }
     
@@ -169,7 +162,10 @@ public abstract class Player : MonoBehaviour
             pd.maxExperience += ((pd.level * (pd.level + 1)) * 25) - 50;
             pd.attack += ((pd.level * (pd.level + 1)) * 10) / 100;
             pd.speed += ((pd.level * (pd.level + 1)) * 0.5f) / 100;
+            exImage.fillAmount = 0;
+            pd.level++;
         }
+        enemy.LevelUp();
     }
     void BulletCreat()
     {

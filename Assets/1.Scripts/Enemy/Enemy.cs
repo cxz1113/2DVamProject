@@ -30,6 +30,7 @@ public enum EdLevelSystem
     Speed,
     Attack
 }
+
 public abstract class Enemy : MonoBehaviour
 {
     public EnemyData ed = new EnemyData();
@@ -120,15 +121,22 @@ public abstract class Enemy : MonoBehaviour
     }
 
     public void LevelUp()
-    {
+    {               
+        if(ed.player.pd.level % 5 == 0)
+        {
+            if (ed.level >= 5)
+                return;
+            ed.level++;
+            ed.maxHp += ((ed.level + (ed.level + 1)) * 25) + 25;
+            ed.attack += ((ed.level * (ed.level + 1)) * 10) / 100;
+            ed.speed += ((ed.level * (ed.level + 1)) * 0.5f) / 100;
+            Debug.Log(ed.level);
+        }
         
-        ed.maxHp += ((ed.level + (ed.level + 1)) * 25) + 25;
-        ed.attack += ((ed.level * (ed.level + 1)) * 10) / 100;
-        ed.speed += ((ed.level * (ed.level + 1)) * 0.5f) / 100;
     }
     IEnumerator BackMove()
     {
-        int count = 3;
+        int count = 2;
         while(true)
         {
             if (!IsAlive)

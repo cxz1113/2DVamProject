@@ -22,6 +22,8 @@ public class SpawnManager : MonoBehaviour
     {
         int rand = Random.Range(0, prefabs.Length);
         int transRand = Random.Range(0, trans.Length);
+        //if(GameControllerManager.instance.player.pd.level < 7)
+
         Enemy enemy = Instantiate(prefabs[rand],trans[transRand]);
         enemy.Initialize();
         enemy.transform.SetParent(parent);
