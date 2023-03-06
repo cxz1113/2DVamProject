@@ -212,6 +212,10 @@ MonoBehaviour:
   dieSp:
   - {fileID: 1261089785, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
   hpImage: {fileID: 6616764329772556829}
+  items:
+  - {fileID: 1607089047807817110, guid: 298646ab96260164086567c47e9f1040, type: 3}
+  - {fileID: 8372610584833410157, guid: d6c6edc2fad9bcb44b537327f65bcf50, type: 3}
+  - {fileID: 1559702333616460851, guid: 959ea83dcb9a9854cbfaeb1b9cfdb034, type: 3}
 --- !u!114 &6422102699004633031
 MonoBehaviour:
   m_ObjectHideFlags: 0

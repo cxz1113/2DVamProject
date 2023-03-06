@@ -182,7 +182,7 @@ public abstract class Player : MonoBehaviour
             wp.transform.SetParent(parent);
             wp.Initialize();
             Destroy(wp.gameObject, 5f);
-        }              
+        }        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

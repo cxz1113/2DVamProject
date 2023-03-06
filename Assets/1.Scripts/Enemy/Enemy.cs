@@ -17,30 +17,23 @@ public struct EnemyData
     public float curHp;
     public float speed;
     public float attack;
-    public float score;
     public int level;
     public Player player;
     public EnemyState state;
-}
-
-public enum EdLevelSystem
-{
-    None,
-    MaxHp,
-    Speed,
-    Attack
+    public GameObject[] itemObj;
 }
 
 public abstract class Enemy : MonoBehaviour
 {
     public EnemyData ed = new EnemyData();
-    public EdLevelSystem edlv = EdLevelSystem.None;
     public abstract void Initialize();
 
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> hitSp;
     [SerializeField] private List<Sprite> dieSp;
     [SerializeField] private Image hpImage;
+    [HideInInspector] private Transform parent;
+    public GameObject[] items;
 
     public bool IsAlive { get; set; }
     public float HP
@@ -53,7 +46,6 @@ public abstract class Enemy : MonoBehaviour
             if(ed.curHp <= 0)
             {
                 IsAlive = false;
-                ed.player.CurExperience += ed.score;
                 Die();
             }
         }
@@ -71,6 +63,23 @@ public abstract class Enemy : MonoBehaviour
             moveSaveTime = 0;
         }
         Move();
+    }
+
+    public void ItemDrop()
+    {
+        int itemIndex = Random.Range(3,5);        
+        int rand = Random.Range(0, 101);
+        if (rand > 0 && rand < 100)
+        {
+            Instantiate(items[0], transform).transform.SetParent(parent);
+        }
+        //else if()
+        if (gameObject.name == "Goblin")
+        {
+            int randItem = Random.Range(0, 3);
+            
+            Instantiate(items[randItem], transform).transform.SetParent(parent);
+        }
     }
 
     Stack<Vector2> moveSaving = new Stack<Vector2>();
@@ -106,6 +115,11 @@ public abstract class Enemy : MonoBehaviour
                 transform.position = new Vector2(transform.position.x, transform.position.y);
             }
         }
+        else
+        {
+            transform.Translate(Vector2.zero * Time.deltaTime * ed.speed);
+            GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -130,7 +144,6 @@ public abstract class Enemy : MonoBehaviour
             ed.maxHp += ((ed.level + (ed.level + 1)) * 25) + 25;
             ed.attack += ((ed.level * (ed.level + 1)) * 10) / 100;
             ed.speed += ((ed.level * (ed.level + 1)) * 0.5f) / 100;
-            Debug.Log(ed.level);
         }
         
     }
@@ -157,13 +170,14 @@ public abstract class Enemy : MonoBehaviour
 
     public void Die()
     {
-        if(!IsAlive)
+        int itemIndex = Random.Range(3, 5);
+        if (!IsAlive)
         {
             transform.GetChild(0).gameObject.SetActive(false);
             GetComponent<CapsuleCollider2D>().isTrigger = true;
             GetComponent<Rigidbody2D>().position = new Vector2(transform.position.x, transform.position.y);
             GetComponent<SpriteAnimation>().SetSprite(dieSp[0], dieSp, 0.2f);
-            Destroy(gameObject, 2f);
-        }        
+            ItemDrop();
+        }
     }
 }

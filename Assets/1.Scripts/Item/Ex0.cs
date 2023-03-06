@@ -8,6 +8,7 @@ public class Ex0 : Item
     {
         id.score = 50;
         ItemType = ItemType.Ex0;
+        id.obj = gameObject;
     }
 
     // Start is called before the first frame update

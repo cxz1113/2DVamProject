@@ -315,6 +315,10 @@ MonoBehaviour:
   dieSp:
   - {fileID: -2007313318, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
   hpImage: {fileID: 8382985533537088331}
+  items:
+  - {fileID: 4455560679341310481, guid: 3bca00a386940334e81c9a92757ea28b, type: 3}
+  - {fileID: 8372610584833410157, guid: d6c6edc2fad9bcb44b537327f65bcf50, type: 3}
+  - {fileID: 1559702333616460851, guid: 959ea83dcb9a9854cbfaeb1b9cfdb034, type: 3}
 --- !u!114 &223781771805954934
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Bullet
   - player
+  - Items
   layers:
   - Default
   - TransparentFX

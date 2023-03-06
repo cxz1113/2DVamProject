@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealinPotion : MonoBehaviour
+public class HealinPotion : Item
 {
+    public override void Initialize()
+    {
+        id.hp = GameControllerManager.instance.player.pd.maxHp / 2;
+        ItemType = ItemType.HealingPotion;
+        id.obj = gameObject;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Initialize();
     }
 }
