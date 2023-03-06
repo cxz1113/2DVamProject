@@ -21,21 +21,12 @@ public enum Direction
     Die
 }
 
-public enum PdLevelSystem
-{
-    None,
-    MaxHp,
-    MaxExperience,
-    Attack,
-    Speed,
-}
 public abstract class Player : MonoBehaviour
 {
     public PlayerData pd = new PlayerData();    
 
     public Direction direction = Direction.Stand;
 
-    public PdLevelSystem pdlv = PdLevelSystem.None;
     [SerializeField] public List<Sprite> idleSp;
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> dieSp;
@@ -167,6 +158,7 @@ public abstract class Player : MonoBehaviour
         }
         enemy.LevelUp();
     }
+
     void BulletCreat()
     {
         if (enemy != null)
@@ -185,13 +177,23 @@ public abstract class Player : MonoBehaviour
         }        
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if(!transform.CompareTag("player"))
         {
-            hpCanvas.gameObject.SetActive(true);
-            HP -= collision.gameObject.GetComponent<Enemy>().ed.attack;
-            StartCoroutine("ReLife");
+            if (collision.CompareTag("Enemy"))
+            {
+                hpCanvas.gameObject.SetActive(true);
+                HP -= collision.gameObject.GetComponent<Enemy>().ed.attack;
+                if (IsAlive)
+                    StartCoroutine("ReLife");
+            }
+            else if (collision.CompareTag("Items"))
+            {
+
+                collision.gameObject.GetComponent<Item>().ItemSelect();
+                Destroy(collision.gameObject);
+            }
         }
     }
 

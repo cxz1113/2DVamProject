@@ -51,10 +51,23 @@ public class SpriteAnimation : MonoBehaviour
     public void SetSprite(Sprite sprite, List<Sprite> argSprites, float delay)
     {
         Init();
-        sprites.Clear();
         sr.sprite = sprite;
         StartCoroutine(ReturnSprite(argSprites, delay));
     }
+
+    public void SetSprite(Sprite sprite, float delay, float disableTime)
+    {
+        Init();
+        sr.sprite = sprite;
+        StartCoroutine(DiesableSprite(disableTime));
+    }
+
+    IEnumerator DiesableSprite(float time)
+    {
+        yield return new WaitForSeconds(time);
+        sr.sprite = null;
+    }
+
     IEnumerator ReturnSprite(List<Sprite> argSprites, float delay)
     {
         yield return new WaitForSeconds(0.01f);

@@ -13,6 +13,8 @@ public class Map : MonoBehaviour
             return;
         else if (collision.CompareTag("player"))
             return;
+        else if (collision.CompareTag("Items"))
+            return;
         Vector3 playerPos = GameControllerManager.instance.player.transform.position;
         Vector3 mapPos = transform.position;
 

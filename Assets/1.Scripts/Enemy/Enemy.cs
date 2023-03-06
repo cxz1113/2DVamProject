@@ -65,21 +65,17 @@ public abstract class Enemy : MonoBehaviour
         Move();
     }
 
-    public void ItemDrop()
+    public void ItemDrop(GameObject[] items, Transform trans)
     {
-        int itemIndex = Random.Range(3,5);        
         int rand = Random.Range(0, 101);
-        if (rand > 0 && rand < 100)
+        if (rand > 33)
         {
-            Instantiate(items[0], transform).transform.SetParent(parent);
+            Instantiate(items[0], trans).transform.SetParent(trans);
         }
-        //else if()
-        if (gameObject.name == "Goblin")
+        else
         {
-            int randItem = Random.Range(0, 3);
-            
-            Instantiate(items[randItem], transform).transform.SetParent(parent);
-        }
+            Instantiate(items[Random.Range(1, items.Length)], trans).transform.SetParent(trans);
+        }        
     }
 
     Stack<Vector2> moveSaving = new Stack<Vector2>();
@@ -102,35 +98,30 @@ public abstract class Enemy : MonoBehaviour
                 {
                     GetComponent<SpriteRenderer>().flipX = false;
                 }
+
                 if (ed.state != EnemyState.Run)
                 {
                     ed.state = EnemyState.Run;
                     GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
                 }
             }       
-            
-            else if(!IsAlive && ed.state != EnemyState.Dead)
+            else if(ed.state != EnemyState.Dead)
             {
                 ed.state = EnemyState.Dead;
-                transform.position = new Vector2(transform.position.x, transform.position.y);
             }
-        }
-        else
-        {
-            transform.Translate(Vector2.zero * Time.deltaTime * ed.speed);
-            GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {        
+    {
         if (collision.CompareTag("Bullet"))
         {
-            GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
-            HP -= collision.gameObject.GetComponent<Weapon>().wd.attack;
-            Destroy(collision.gameObject);
+            HP -= collision.gameObject.GetComponent<Weapon>().wd.attack;            
+            if (IsAlive)
+                GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
             StopCoroutine("BackMove");
             StartCoroutine("BackMove");
+            Destroy(collision.gameObject);
         }
     }
 
@@ -173,11 +164,11 @@ public abstract class Enemy : MonoBehaviour
         int itemIndex = Random.Range(3, 5);
         if (!IsAlive)
         {
+            ItemDrop(items, transform);
             transform.GetChild(0).gameObject.SetActive(false);
-            GetComponent<CapsuleCollider2D>().isTrigger = true;
-            GetComponent<Rigidbody2D>().position = new Vector2(transform.position.x, transform.position.y);
-            GetComponent<SpriteAnimation>().SetSprite(dieSp[0], dieSp, 0.2f);
-            ItemDrop();
+            GetComponent<CapsuleCollider2D>().enabled = false;
+            Destroy(GetComponent<Rigidbody2D>());
+            GetComponent<SpriteAnimation>().SetSprite(dieSp[0], 0.2f, 1f);
         }
     }
 }
