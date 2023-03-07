@@ -22,6 +22,7 @@ public abstract class Item : MonoBehaviour
 {
     public ItemData id = new ItemData();
     public ItemType ItemType;
+
     public abstract void Initialize();
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,6 +35,7 @@ public abstract class Item : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     public void ItemSelect()
     {
         switch(ItemType)
@@ -53,35 +55,8 @@ public abstract class Item : MonoBehaviour
                 GameControllerManager.instance.player.HP += id.hp;
                 break;
             case ItemType.Shadow:
-                StartCoroutine(Hide(4));
-                
-                //Invoke("fHide", 4f);
-                Debug.Log(GameControllerManager.instance.player.IsHide);
+                GameControllerManager.instance.player.StartCoroutine("Hide");
                 break;
         }        
-    }
-
-    IEnumerator Hide(int time)
-    {
-        int count = time;
-        while(true)
-        {
-            GameControllerManager.instance.player.IsHide = true;
-            GameControllerManager.instance.player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
-            yield return new WaitForSeconds(1f);
-            count--;
-            if(count <= 0)
-            {
-                GameControllerManager.instance.player.IsHide = false;
-                GameControllerManager.instance.player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-                break;
-            }
-        }
-            
-    }
-    void fHide()
-    {
-        GameControllerManager.instance.player.IsHide = true;
-        GameControllerManager.instance.player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);        
     }
 }

@@ -14,5 +14,7 @@ public class Zombie : Enemy
         ed.player = FindAnyObjectByType<Player>();
         IsAlive = true;
         ed.itemObj = items;
+
+        base.Initialize();
     }
 }

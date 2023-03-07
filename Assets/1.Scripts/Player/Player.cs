@@ -23,10 +23,6 @@ public enum Direction
 
 public abstract class Player : MonoBehaviour
 {
-    public PlayerData pd = new PlayerData();    
-
-    public Direction direction = Direction.Stand;
-
     [SerializeField] public List<Sprite> idleSp;
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> dieSp;
@@ -37,25 +33,29 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private Image exImage;
     [SerializeField] private TMP_Text levelTxt;
     [SerializeField] private Image hpImage;
+    [SerializeField] private SpriteRenderer wpsr;
+    [SerializeField] private List<Weapon> weapons = new List<Weapon>();
+    
+    public PlayerData pd = new PlayerData();    
+    public Direction direction = Direction.Stand;
     public Canvas hpCanvas;
-    Enemy enemy;
-    public abstract void Initialize();
-
+    
+    public bool IsAlive { get; set; }
+    public bool IsHide { get; set; }
     public float HP
     {
         get { return pd.curHp; }
-        set 
-        { 
-            pd.curHp = value;            
+        set
+        {
+            pd.curHp = value;
             hpImage.fillAmount = pd.curHp / pd.maxHp;
-            if(HP <= 0 && IsAlive)
+            if (HP <= 0 && IsAlive)
             {
                 IsAlive = false;
                 Die();
             }
         }
     }
-
     public float CurExperience
     {
         get { return pd.curExperience; }
@@ -63,20 +63,18 @@ public abstract class Player : MonoBehaviour
         {
             pd.curExperience = value;
             exImage.fillAmount = pd.curExperience / pd.maxExperience;
-            if(pd.curExperience >= pd.maxExperience)
+            if (pd.curExperience >= pd.maxExperience)
             {
-                IsLevel = true;
                 LevelUp();
-                pd.curHp = pd.maxHp;                
+                pd.curHp = pd.maxHp;
             }
-            IsLevel = false;
         }
     }
-    
-    public bool IsAlive { get; set; }
-    public bool IsLevel { get; set; }
-    public bool IsHide { get; set; }
+
+    Enemy enemy;
     float fireTime = 0;
+    
+    public abstract void Initialize();
 
     void Update()
     {
@@ -95,6 +93,7 @@ public abstract class Player : MonoBehaviour
             BulletCreat();
         }
     }
+
     public void Move()
     {
         float x = Input.GetAxisRaw("Horizontal");
@@ -106,12 +105,13 @@ public abstract class Player : MonoBehaviour
         // FlipX를 이용하여 좌우반전
         if(x < 0)
         {
-            sr.flipX = true;
+            wpsr.flipX = sr.flipX = true;
         }
         else if(x > 0)
         {
-            sr.flipX = false;
+            wpsr.flipX = sr.flipX = false;
         }
+
         // 왼쪽 또는 오른쪽 이동시 Sprite 사용
         if((x != 0 || y != 0) && direction != Direction.Run)
         {
@@ -125,7 +125,6 @@ public abstract class Player : MonoBehaviour
             GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);
         }
     }
-
     void FindEnemy()
     {
         // 적 찾기
@@ -133,6 +132,7 @@ public abstract class Player : MonoBehaviour
 
         if (targets.Length == 0)
             return;
+
         float dis = Vector3.Distance(transform.position, targets[0].transform.position);
         foreach (var target in targets)
         {
@@ -147,17 +147,13 @@ public abstract class Player : MonoBehaviour
 
     void LevelUp()
     {
-        if (IsLevel)
-        {
-            pd.curExperience = 0;
-            pd.maxHp += ((pd.level + (pd.level + 1)) * 25) - 25;
-            pd.maxExperience += ((pd.level * (pd.level + 1)) * 25) - 50;
-            pd.attack += ((pd.level * (pd.level + 1)) * 10) / 100;
-            pd.speed += ((pd.level * (pd.level + 1)) * 0.5f) / 100;
-            exImage.fillAmount = 0;
-            pd.level++;
-        }
-        enemy.LevelUp();
+        pd.curExperience = 0;
+        pd.maxHp += ((pd.level + (pd.level + 1)) * 25) - 25;
+        pd.maxExperience += ((pd.level * (pd.level + 1)) * 25) - 50;
+        pd.attack += ((pd.level * (pd.level + 1)) * 10) / 100;
+        pd.speed += ((pd.level * (pd.level + 1)) * 0.5f) / 100;
+        exImage.fillAmount = 0;
+        pd.level++;
     }
 
     void BulletCreat()
@@ -190,6 +186,7 @@ public abstract class Player : MonoBehaviour
         hpCanvas.gameObject.SetActive(false);
         GetComponent<SpriteRenderer>().enabled = true;
     }
+
     void Die()
     {
         if(!IsAlive)
@@ -197,5 +194,16 @@ public abstract class Player : MonoBehaviour
             //GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
             GetComponent<SpriteAnimation>().SetSprite(dieSp, 0.2f);
         }
+    }
+
+    public IEnumerator Hide()
+    {
+        IsHide = true;
+        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.2f);
+
+        yield return new WaitForSeconds(3f);
+
+        IsHide = false;
+        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
     }
 }

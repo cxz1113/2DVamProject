@@ -14,5 +14,7 @@ public class Skeleton : Enemy
         ed.player = FindAnyObjectByType<Player>();
         IsAlive = true;
         ed.itemObj = items;
+
+        base.Initialize();
     }
 }

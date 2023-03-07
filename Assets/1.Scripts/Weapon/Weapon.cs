@@ -21,6 +21,7 @@ public abstract class Weapon : MonoBehaviour
 {
     public WeaponData wd = new WeaponData();
     public WeaponDataType weaponDataType = WeaponDataType.Shovel;
+
     public abstract void Initialize();
 
     public virtual void Move()
