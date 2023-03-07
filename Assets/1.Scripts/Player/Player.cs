@@ -37,7 +37,7 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private Image exImage;
     [SerializeField] private TMP_Text levelTxt;
     [SerializeField] private Image hpImage;
-    [SerializeField] private Canvas hpCanvas;
+    public Canvas hpCanvas;
     Enemy enemy;
     public abstract void Initialize();
 
@@ -75,6 +75,7 @@ public abstract class Player : MonoBehaviour
     
     public bool IsAlive { get; set; }
     public bool IsLevel { get; set; }
+    public bool IsHide { get; set; }
     float fireTime = 0;
 
     void Update()
@@ -177,27 +178,7 @@ public abstract class Player : MonoBehaviour
         }        
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(!transform.CompareTag("player"))
-        {
-            if (collision.CompareTag("Enemy"))
-            {
-                hpCanvas.gameObject.SetActive(true);
-                HP -= collision.gameObject.GetComponent<Enemy>().ed.attack;
-                if (IsAlive)
-                    StartCoroutine("ReLife");
-            }
-            else if (collision.CompareTag("Items"))
-            {
-
-                collision.gameObject.GetComponent<Item>().ItemSelect();
-                Destroy(collision.gameObject);
-            }
-        }
-    }
-
-    IEnumerator ReLife()
+    public IEnumerator ReLife()
     {
         bool show = false;
         for(int i = 0; i < 10; i++)

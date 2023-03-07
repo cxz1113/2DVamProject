@@ -24,27 +24,64 @@ public abstract class Item : MonoBehaviour
     public ItemType ItemType;
     public abstract void Initialize();
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Area"))
+            return;
+        else if(collision.CompareTag("player"))
+        {
+            ItemSelect();
+            Destroy(gameObject);
+        }
+    }
     public void ItemSelect()
     {
         switch(ItemType)
         {
             case ItemType.Ex0:
-                GameControllerManager.instance.player.pd.curExperience += id.score;
+                GameControllerManager.instance.player.CurExperience += id.score;
                 break;
             case ItemType.Ex1:
-                GameControllerManager.instance.player.pd.curExperience += id.score;
+                GameControllerManager.instance.player.CurExperience += id.score;
                 break;
             case ItemType.Ex2:
-                GameControllerManager.instance.player.pd.curExperience += id.score;
+                GameControllerManager.instance.player.CurExperience += id.score;
                 break;
             case ItemType.HealingPotion:
-                if (GameControllerManager.instance.player.pd.curHp >= GameControllerManager.instance.player.pd.maxHp)
+                if (GameControllerManager.instance.player.HP >= GameControllerManager.instance.player.pd.maxHp)
                     return;
-                GameControllerManager.instance.player.pd.curHp += id.hp;
+                GameControllerManager.instance.player.HP += id.hp;
                 break;
             case ItemType.Shadow:
-                GameControllerManager.instance.player.GetComponent<Image>().color = new Color(255, 255, 255, 100 / 255);
+                StartCoroutine(Hide(4));
+                
+                //Invoke("fHide", 4f);
+                Debug.Log(GameControllerManager.instance.player.IsHide);
                 break;
+        }        
+    }
+
+    IEnumerator Hide(int time)
+    {
+        int count = time;
+        while(true)
+        {
+            GameControllerManager.instance.player.IsHide = true;
+            GameControllerManager.instance.player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
+            yield return new WaitForSeconds(1f);
+            count--;
+            if(count <= 0)
+            {
+                GameControllerManager.instance.player.IsHide = false;
+                GameControllerManager.instance.player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+                break;
+            }
         }
+            
+    }
+    void fHide()
+    {
+        GameControllerManager.instance.player.IsHide = true;
+        GameControllerManager.instance.player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);        
     }
 }

@@ -70,7 +70,7 @@ public abstract class Enemy : MonoBehaviour
         int rand = Random.Range(0, 101);
         if (rand > 33)
         {
-            Instantiate(items[0], trans).transform.SetParent(trans);
+            Instantiate(items[2], trans).transform.SetParent(trans);
         }
         else
         {
@@ -84,10 +84,9 @@ public abstract class Enemy : MonoBehaviour
     {
         Vector3 distance = ed.player.transform.position - transform.position;
         float dis = Vector3.Distance(transform.position, ed.player.transform.position);
-
-        if (ed.player != null)
+        if(ed.player.IsAlive && !ed.player.IsHide)
         {
-            if(IsAlive && dis > 1f)
+            if(IsAlive)
             {
                 transform.Translate(Time.deltaTime * ed.speed * distance.normalized);
                 if (distance.normalized.x < 0)
@@ -104,12 +103,48 @@ public abstract class Enemy : MonoBehaviour
                     ed.state = EnemyState.Run;
                     GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
                 }
-            }       
-            else if(ed.state != EnemyState.Dead)
+            }
+            else if (ed.state != EnemyState.Dead)
             {
                 ed.state = EnemyState.Dead;
             }
         }
+        else if(!ed.player.IsAlive || ed.player.IsHide)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y);
+        }
+        /* Vector3 distance = ed.player.transform.position - transform.position;
+         float dis = Vector3.Distance(transform.position, ed.player.transform.position);
+
+         if (ed.player != null)
+         {
+             if(IsAlive && dis > 1f)
+             {
+                 transform.Translate(Time.deltaTime * ed.speed * distance.normalized);
+                 if (distance.normalized.x < 0)
+                 {
+                     GetComponent<SpriteRenderer>().flipX = true;
+                 }
+                 else
+                 {
+                     GetComponent<SpriteRenderer>().flipX = false;
+                 }
+
+                 if (ed.state != EnemyState.Run)
+                 {
+                     ed.state = EnemyState.Run;
+                     GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
+                 }
+             }       
+             else if(ed.state != EnemyState.Dead)
+             {
+                 ed.state = EnemyState.Dead;
+             }
+             else if (ed.player.IsHide)
+             {
+                 transform.position = new Vector2(transform.position.x, transform.position.y);
+             }
+         }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -122,6 +157,14 @@ public abstract class Enemy : MonoBehaviour
             StopCoroutine("BackMove");
             StartCoroutine("BackMove");
             Destroy(collision.gameObject);
+        }
+        else if(collision.CompareTag("player"))
+        {
+            Player player = collision.GetComponent<Player>();
+            player.hpCanvas.gameObject.SetActive(true);
+            player.HP -= ed.attack;
+            if (player.IsAlive)
+                StartCoroutine(player.ReLife());
         }
     }
 
@@ -168,7 +211,7 @@ public abstract class Enemy : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(false);
             GetComponent<CapsuleCollider2D>().enabled = false;
             Destroy(GetComponent<Rigidbody2D>());
-            GetComponent<SpriteAnimation>().SetSprite(dieSp[0], 0.2f, 1f);
+            GetComponent<SpriteAnimation>().SetSprite(dieSp[0], 0.2f, 0.5f);
         }
     }
 }

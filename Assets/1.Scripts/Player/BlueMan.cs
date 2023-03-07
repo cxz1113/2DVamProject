@@ -15,6 +15,7 @@ public class BlueMan : Player
         pd.curExperience = 0;
         pd.enemy = FindAnyObjectByType<Enemy>();
         IsAlive = true;
+        IsHide = false;
     }
 
     void Start()
