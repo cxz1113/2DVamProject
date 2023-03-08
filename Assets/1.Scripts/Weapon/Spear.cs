@@ -10,4 +10,9 @@ public class Spear : Weapon
         wd.speed = 4f;
         weaponDataType = WeaponDataType.Spear;
     }
+
+    void Start()
+    {
+        Initialize();
+    }
 }

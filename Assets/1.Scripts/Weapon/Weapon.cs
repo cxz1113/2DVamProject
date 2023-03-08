@@ -6,7 +6,6 @@ public struct WeaponData
 {
     public float attack;
     public float speed;
-    public GameObject bullet;
 }
 
 public enum WeaponDataType
@@ -22,10 +21,10 @@ public abstract class Weapon : MonoBehaviour
 {
     public WeaponData wd = new WeaponData();
     public WeaponDataType weaponDataType;
-    public GameObject bullet;
+    public Sprite weaponSprite;
 
     public abstract void Initialize();
-
+    
     public virtual void Move()
     {
         transform.Translate(Vector2.up * Time.deltaTime * wd.speed);

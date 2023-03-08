@@ -27,15 +27,14 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> dieSp;
     [SerializeField] private SpriteRenderer sr;
-    [SerializeField] private Weapon weapon;
+    [SerializeField] public Weapon weapon;
     [SerializeField] private Transform parent;
     [SerializeField] private Transform bulletPos;
     [SerializeField] private Image exImage;
     [SerializeField] private TMP_Text levelTxt;
     [SerializeField] private Image hpImage;
-    [SerializeField] private GameObject weaponSr;
-    [SerializeField] private List<Weapon> weapons = new List<Weapon>();
-    
+
+    public SpriteRenderer weaponSr;    
     public PlayerData pd = new PlayerData();    
     public Direction direction = Direction.Stand;
     public Canvas hpCanvas;
@@ -71,15 +70,9 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-    Enemy enemy;
     float fireTime = 0;
     
     public abstract void Initialize();
-
-    void Start()
-    {
-        //weaponSr.GetComponent<SpriteRenderer>().sprite = FindAnyObjectByType<UICard>().weapons[0].GetComponent<SpriteRenderer>().sprite;
-    }
 
     void Update()
     {
@@ -103,18 +96,18 @@ public abstract class Player : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
-        
+
         Vector3 dir = new Vector3(x, y, 0f);
         transform.Translate(dir * Time.deltaTime * pd.speed);
 
         // FlipX를 이용하여 좌우반전
         if(x < 0)
         {
-            sr.flipX = true;
+           weaponSr.flipX = sr.flipX = true;
         }
         else if(x > 0)
         {
-            sr.flipX = false;
+           weaponSr.flipX = sr.flipX = false;
         }
 
         // 왼쪽 또는 오른쪽 이동시 Sprite 사용
@@ -144,7 +137,7 @@ public abstract class Player : MonoBehaviour
             float distance = Vector3.Distance(transform.position, target.transform.position);
             if(distance < dis)
             {
-                enemy = target;
+                pd.enemy = target;
                 dis = distance;
             }
         }      
@@ -163,24 +156,18 @@ public abstract class Player : MonoBehaviour
 
     void BulletCreat()
     {
-        if (enemy != null)
+        if (pd.enemy != null)
         {  
             // 몬스터 방향으로 Bullet 회전
-            Vector2 vec = transform.position - enemy.transform.position;
+            Vector2 vec = transform.position - pd.enemy.transform.position;
             float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
             bulletPos.rotation = rotation;
 
             //Weapon wp = Instantiate(weapon, bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
-            /*Weapon wp = Instantiate(weapon, bulletPos.transform);
+            Weapon wp = Instantiate(GameControllerManager.instance.uiCardCont.weapons[0], bulletPos.transform);
             wp.transform.SetParent(parent);
-            wp.Initialize();
-            Destroy(wp.gameObject, 5f);*/
-
-            GameObject obj = Instantiate(weapon.wd.bullet, bulletPos.transform);
-            FindObjectOfType<Weapon>().Initialize();
-            Destroy(obj.gameObject, 5f);
-            
+            Destroy(wp.gameObject, 5f);
         }        
     }
 

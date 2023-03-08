@@ -10,4 +10,9 @@ public class Gun : Weapon
         wd.speed = 6f;
         weaponDataType = WeaponDataType.Gun;
     }
+
+    void Start()
+    {
+        Initialize();
+    }
 }

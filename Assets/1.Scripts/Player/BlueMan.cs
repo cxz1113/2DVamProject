@@ -13,7 +13,6 @@ public class BlueMan : Player
         pd.level = 1;
         pd.maxExperience = ((pd.level * (pd.level + 1)) * 25) - 50;
         pd.curExperience = 0;
-        pd.enemy = FindAnyObjectByType<Enemy>();
         IsAlive = true;
         IsHide = false;
     }
@@ -21,6 +20,7 @@ public class BlueMan : Player
     void Start()
     {
         Initialize();
+        weaponSr.sprite = GameControllerManager.instance.uiCardCont.weapons[0].weaponSprite;
         direction = Direction.Stand;
         GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);
     }

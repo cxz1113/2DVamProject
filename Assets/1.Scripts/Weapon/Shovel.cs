@@ -9,10 +9,9 @@ public class Shovel : Weapon
         wd.attack = 20;
         wd.speed = 4f;
         weaponDataType = WeaponDataType.Shovel;
-        wd.bullet = gameObject;
     }
 
-    private void Start()
+    void Start()
     {
         Initialize();
     }

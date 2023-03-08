@@ -6,6 +6,8 @@ public struct ItemData
 {
     public float score;
     public float hp;
+    public float attack;
+    public float speed;
     public GameObject obj;
 }
 
@@ -16,7 +18,9 @@ public enum ItemType
     Ex1,
     Ex2,
     HealingPotion,
-    Shadow
+    Shadow,
+    Attack,
+    Speed
 }
 public abstract class Item : MonoBehaviour
 {

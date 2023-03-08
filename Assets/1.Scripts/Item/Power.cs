@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slasher : Weapon
+public class Power : Item
 {
     public override void Initialize()
     {
-        wd.attack = 20;
-        wd.speed = 4f;
-        weaponDataType = WeaponDataType.Slasher;
+        id.attack = 2;
+        ItemType = ItemType.Attack;
+        id.obj = gameObject;
     }
 
+    // Start is called before the first frame update
     void Start()
     {
         Initialize();

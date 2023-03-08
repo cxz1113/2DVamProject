@@ -10,4 +10,9 @@ public class ShotGun : Weapon
         wd.speed = 4f;
         weaponDataType = WeaponDataType.Slasher;
     }
+
+    void Start()
+    {
+        Initialize();
+    }
 }
