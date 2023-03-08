@@ -33,7 +33,7 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private Image exImage;
     [SerializeField] private TMP_Text levelTxt;
     [SerializeField] private Image hpImage;
-    [SerializeField] private SpriteRenderer wpsr;
+    [SerializeField] private GameObject weaponSr;
     [SerializeField] private List<Weapon> weapons = new List<Weapon>();
     
     public PlayerData pd = new PlayerData();    
@@ -76,6 +76,11 @@ public abstract class Player : MonoBehaviour
     
     public abstract void Initialize();
 
+    void Start()
+    {
+        //weaponSr.GetComponent<SpriteRenderer>().sprite = FindAnyObjectByType<UICard>().weapons[0].GetComponent<SpriteRenderer>().sprite;
+    }
+
     void Update()
     {
         if (!IsAlive)
@@ -105,11 +110,11 @@ public abstract class Player : MonoBehaviour
         // FlipX를 이용하여 좌우반전
         if(x < 0)
         {
-            wpsr.flipX = sr.flipX = true;
+            sr.flipX = true;
         }
         else if(x > 0)
         {
-            wpsr.flipX = sr.flipX = false;
+            sr.flipX = false;
         }
 
         // 왼쪽 또는 오른쪽 이동시 Sprite 사용
@@ -167,10 +172,15 @@ public abstract class Player : MonoBehaviour
             bulletPos.rotation = rotation;
 
             //Weapon wp = Instantiate(weapon, bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
-            Weapon wp = Instantiate(weapon, bulletPos.transform);
+            /*Weapon wp = Instantiate(weapon, bulletPos.transform);
             wp.transform.SetParent(parent);
             wp.Initialize();
-            Destroy(wp.gameObject, 5f);
+            Destroy(wp.gameObject, 5f);*/
+
+            GameObject obj = Instantiate(weapon.wd.bullet, bulletPos.transform);
+            FindObjectOfType<Weapon>().Initialize();
+            Destroy(obj.gameObject, 5f);
+            
         }        
     }
 

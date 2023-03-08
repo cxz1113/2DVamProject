@@ -6,13 +6,8 @@ public class Gun : Weapon
 {
     public override void Initialize()
     {
-        wd.attack = 5;
-        wd.speed = 1.5f;
+        wd.attack = 50;
+        wd.speed = 6f;
         weaponDataType = WeaponDataType.Gun;
-    }
-
-    void Start()
-    {
-        Initialize();
     }
 }

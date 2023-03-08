@@ -6,6 +6,7 @@ public struct WeaponData
 {
     public float attack;
     public float speed;
+    public GameObject bullet;
 }
 
 public enum WeaponDataType
@@ -20,7 +21,8 @@ public enum WeaponDataType
 public abstract class Weapon : MonoBehaviour
 {
     public WeaponData wd = new WeaponData();
-    public WeaponDataType weaponDataType = WeaponDataType.Shovel;
+    public WeaponDataType weaponDataType;
+    public GameObject bullet;
 
     public abstract void Initialize();
 

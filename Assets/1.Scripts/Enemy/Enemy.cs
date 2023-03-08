@@ -85,7 +85,11 @@ public abstract class Enemy : MonoBehaviour
         else
         {
             Instantiate(items[Random.Range(1, items.Length)], trans).transform.SetParent(trans);
-        }        
+        }
+        if(gameObject.name == "Goblin")
+        {
+            Instantiate(items[Random.Range(0, items.Length)], trans).transform.SetParent(trans);
+        }
     }
 
     Stack<Vector2> moveSaving = new Stack<Vector2>();
