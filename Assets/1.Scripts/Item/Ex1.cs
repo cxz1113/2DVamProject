@@ -16,10 +16,4 @@ public class Ex1 : Item
     {
         Initialize();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

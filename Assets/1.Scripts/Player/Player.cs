@@ -33,6 +33,7 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private Image exImage;
     [SerializeField] private TMP_Text levelTxt;
     [SerializeField] private Image hpImage;
+    public List<Weapon> weapons;
 
     public SpriteRenderer weaponSr;    
     public PlayerData pd = new PlayerData();    
