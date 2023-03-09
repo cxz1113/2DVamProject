@@ -166,9 +166,9 @@ public abstract class Player : MonoBehaviour
             bulletPos.rotation = rotation;
 
             //Weapon wp = Instantiate(weapon, bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
-            Weapon wp = Instantiate(GameControllerManager.instance.uiCardCont.weapons[0], bulletPos.transform);
-            wp.transform.SetParent(parent);
-            Destroy(wp.gameObject, 5f);
+            //Weapon wp = Instantiate(GameControllerManager.instance.uiCardCont.weapons[0], bulletPos.transform);
+            //wp.transform.SetParent(parent);
+            //Destroy(wp.gameObject, 5f);
         }        
     }
 
@@ -198,6 +198,7 @@ public abstract class Player : MonoBehaviour
     {
         IsHide = true;
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.2f);
+
 
         yield return new WaitForSeconds(3f);
 

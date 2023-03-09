@@ -7,6 +7,6 @@ public class GameControllerManager : MonoBehaviour
     public static GameControllerManager instance;
     public Player player;
     public UIManager uiCont;
-    public UICard uiCardCont;
+    public UICardController uiCardCont;
     void Awake() { instance = this; }   
 }
