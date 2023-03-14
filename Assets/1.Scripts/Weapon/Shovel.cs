@@ -9,30 +9,38 @@ public class Shovel : Weapon
         wd.attack = 20;
         wd.speed = 4f;
         wd.fireTime = 0;
+        wd.bullet = bullet;
+        wd.setParent = bulletPos;
+        wd.player = GameControllerManager.instance.player;
+        wd.enemy = GameControllerManager.instance.enemy;
         weaponDataType = WeaponDataType.Shovel;
     }
 
     void Start()
     {
-        Initialize();
-    }
+        Initialize();    
 
+    }
     void Update()
     {
         wd.fireTime += Time.deltaTime;
-        if(wd.fireTime > 1f)
+        if (wd.fireTime > 1f)
         {
             wd.fireTime = 0;
             BulletCreate();
         }
     }
-    public override void Move()
+    public void BulletCreate()
     {
-        transform.Translate(Vector2.up * Time.deltaTime * wd.speed);
-    }
+        // 몬스터 방향으로 Bullet 회전
+        Vector2 vec = wd.player.transform.position - wd.enemy.transform.position;
+        float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.AngleAxis(angle + 360, Vector3.forward);
+        GameControllerManager.instance.player.bulletPos.rotation = rotation;
 
-    public override void BulletCreate()
-    {
-        base.BulletCreate();
+        wd.bullet = Instantiate(wd.bullet, GameControllerManager.instance.player.bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
+        wd.bullet.transform.SetParent(GameControllerManager.instance.player.parent);
+        wd.bullet.Initialize();
+        Destroy(wd.bullet.gameObject, 5f);
     }
 }

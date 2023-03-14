@@ -131,7 +131,7 @@ public abstract class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
-            HP -= collision.gameObject.GetComponent<Weapon>().wd.attack;            
+            HP -= collision.gameObject.GetComponent<Bullet>().bd.attack;            
             if (IsAlive)
                 GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
             StopCoroutine("BackMove");

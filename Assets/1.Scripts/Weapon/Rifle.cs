@@ -15,13 +15,13 @@ public class Rifle : Weapon
     {
         Initialize();
     }
-
     void Update()
     {
-        Move();
+        wd.fireTime += Time.deltaTime;
+        if (wd.fireTime > 1f)
+        {
+            wd.fireTime = 0;
+        }
     }
-    public override void Move()
-    {
-        transform.Translate(Vector2.up * Time.deltaTime * wd.speed);
-    }
+
 }

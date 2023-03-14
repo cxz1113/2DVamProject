@@ -12,6 +12,7 @@ public struct PlayerData
     public int level;
     public float maxExperience;
     public float curExperience;
+    public Weapon weapon;
     public Enemy enemy;
 }
 public enum Direction
@@ -27,15 +28,15 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> dieSp;
     [SerializeField] private SpriteRenderer sr;
-    [SerializeField] public Weapon weapon;
     [SerializeField] private Image exImage;
     [SerializeField] private TMP_Text levelTxt;
     [SerializeField] private Image hpImage;
 
+    public Weapon weapon;
     public List<Weapon> weapons;
     public Transform bulletPos;
     public Transform parent;
-    public SpriteRenderer weaponSr;    
+    public Transform weaponSet;    
     public PlayerData pd = new PlayerData();    
     public Direction direction = Direction.Stand;
     public Canvas hpCanvas;
@@ -103,11 +104,11 @@ public abstract class Player : MonoBehaviour
         // FlipX를 이용하여 좌우반전
         if(x < 0)
         {
-           weaponSr.flipX = sr.flipX = true;
+            pd.weapon.GetComponent<SpriteRenderer>().flipX = sr.flipX = true;
         }
         else if(x > 0)
         {
-           weaponSr.flipX = sr.flipX = false;
+            pd.weapon.GetComponent<SpriteRenderer>().flipX = sr.flipX = false;
         }
 
         // 왼쪽 또는 오른쪽 이동시 Sprite 사용
@@ -163,11 +164,11 @@ public abstract class Player : MonoBehaviour
             float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
             bulletPos.rotation = rotation;
-
-            Weapon wp = Instantiate(weapon, bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
-            //Weapon wp = Instantiate(weapon, bulletPos.transform);
-            wp.transform.SetParent(parent);
-            Destroy(wp.gameObject, 5f);
+            
+            Weapon wp = Instantiate(weapon, weaponSet);
+            Bullet bullet = Instantiate(wp.bullet, bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
+            bullet.transform.SetParent(parent);
+            Destroy(bullet.gameObject, 5f);
         }        
     }
 

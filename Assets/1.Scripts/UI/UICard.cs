@@ -32,14 +32,14 @@ public class UICard : MonoBehaviour
     {
         Player player = GameControllerManager.instance.player;
         player.weapon = weapon;
-        player.weaponSr.sprite = weapon.weaponSprite;
+        //player.weaponSr.sprite = weapon.weaponSprite;
         player.weapons.Add(weapon);
         GameControllerManager.instance.uiCont.gameObject.SetActive(false);
     }
     public UICard SetWeapon()
     {
         this.weapon = weapons[Random.Range(0, weapons.Count)];
-        spImage.sprite = weapon.weaponSprite;
+        //spImage.sprite = weapon.weaponSprite;
         Name = weapon.name;
         return this;
     }
