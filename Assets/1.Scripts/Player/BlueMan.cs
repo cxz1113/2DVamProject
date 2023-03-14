@@ -20,8 +20,8 @@ public class BlueMan : Player
     void Start()
     {
         Initialize();
-        //weapons.Add(GameControllerManager.instance.uiCardCont.weapons[0]);
-        //weaponSr.sprite = GameControllerManager.instance.uiCardCont.weapons[0].weaponSprite;
+        weapons.Add(weapon);
+        weaponSr.sprite = weapon.weaponSprite;
         direction = Direction.Stand;
         GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);
     }

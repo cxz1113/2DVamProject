@@ -6,6 +6,9 @@ public struct WeaponData
 {
     public float attack;
     public float speed;
+    public float fireTime;
+    public Enemy enemy;
+    public Player player;
 }
 
 public enum WeaponDataType
@@ -24,14 +27,21 @@ public abstract class Weapon : MonoBehaviour
     public Sprite weaponSprite;
 
     public abstract void Initialize();
-    
-    public virtual void Move()
-    {
-        transform.Translate(Vector2.up * Time.deltaTime * wd.speed);
-    }
 
-    void Update()
+    public abstract void Move();
+
+    public virtual void BulletCreate()
     {
-        Move();
+        // 몬스터 방향으로 Bullet 회전
+        Vector2 vec = wd.player.transform.position - wd.enemy.transform.position;
+        float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+        wd.player.bulletPos.rotation = rotation;
+
+        Weapon wp = Instantiate(wd.player.weapon, wd.player.bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
+        //Weapon wp = Instantiate(weapon, bulletPos.transform);
+        wp.transform.SetParent(wd.player.parent);
+        wp.Move();
+        Destroy(wp.gameObject, 5f);        
     }
 }

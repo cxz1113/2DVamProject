@@ -13,7 +13,6 @@ public class UIManager : MonoBehaviour
         CardSpawn();
     }
 
-
     void CardSpawn()
     {
         for(int i = 0; i < 2; i++)

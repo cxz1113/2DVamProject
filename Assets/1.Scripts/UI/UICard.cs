@@ -30,7 +30,11 @@ public class UICard : MonoBehaviour
 
     void OnButtonWeapon()
     {
-
+        Player player = GameControllerManager.instance.player;
+        player.weapon = weapon;
+        player.weaponSr.sprite = weapon.weaponSprite;
+        player.weapons.Add(weapon);
+        GameControllerManager.instance.uiCont.gameObject.SetActive(false);
     }
     public UICard SetWeapon()
     {

@@ -28,13 +28,13 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private List<Sprite> dieSp;
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] public Weapon weapon;
-    [SerializeField] private Transform parent;
-    [SerializeField] private Transform bulletPos;
     [SerializeField] private Image exImage;
     [SerializeField] private TMP_Text levelTxt;
     [SerializeField] private Image hpImage;
-    public List<Weapon> weapons;
 
+    public List<Weapon> weapons;
+    public Transform bulletPos;
+    public Transform parent;
     public SpriteRenderer weaponSr;    
     public PlayerData pd = new PlayerData();    
     public Direction direction = Direction.Stand;
@@ -84,13 +84,12 @@ public abstract class Player : MonoBehaviour
 
         Move();
         FindEnemy();
-
         fireTime += Time.deltaTime;
-        if (fireTime > 1f)
+        /*if (fireTime > 1f)
         {
             fireTime = 0;
             BulletCreat();
-        }
+        }*/
     }
 
     public void Move()
@@ -165,10 +164,10 @@ public abstract class Player : MonoBehaviour
             Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
             bulletPos.rotation = rotation;
 
-            //Weapon wp = Instantiate(weapon, bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
-            //Weapon wp = Instantiate(GameControllerManager.instance.uiCardCont.weapons[0], bulletPos.transform);
-            //wp.transform.SetParent(parent);
-            //Destroy(wp.gameObject, 5f);
+            Weapon wp = Instantiate(weapon, bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
+            //Weapon wp = Instantiate(weapon, bulletPos.transform);
+            wp.transform.SetParent(parent);
+            Destroy(wp.gameObject, 5f);
         }        
     }
 

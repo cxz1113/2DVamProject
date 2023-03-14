@@ -15,4 +15,13 @@ public class Slasher : Weapon
     {
         Initialize();
     }
+
+    void Update()
+    {
+        Move();
+    }
+    public override void Move()
+    {
+        transform.Translate(Vector2.up * Time.deltaTime * wd.speed);
+    }
 }
