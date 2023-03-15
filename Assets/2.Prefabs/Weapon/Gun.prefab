@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponDataType: 0
   bullet: {fileID: 3722483569445951752, guid: 5af230d0970cc8147b57a161f1316ed4, type: 3}
-  bulletPos: {fileID: 729231091958464372}
+  bulletPos: {fileID: 0}
 --- !u!212 &6740947379165896960
 SpriteRenderer:
   m_ObjectHideFlags: 0

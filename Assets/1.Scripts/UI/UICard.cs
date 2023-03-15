@@ -12,6 +12,7 @@ public class UICard : MonoBehaviour
 
     public List<Item> items = new List<Item>();
     public List<Weapon> weapons = new List<Weapon>();
+    public List<Weapon> randWeapons;
     public Queue<Weapon> cards = new Queue<Weapon>();
     Weapon weapon;
 
@@ -28,19 +29,54 @@ public class UICard : MonoBehaviour
         uiText.text = string.Format($"{Name}");
     }
 
+    internal void SetWeapon(object v)
+    {
+        throw new System.NotImplementedException();
+    }
+
     void OnButtonWeapon()
     {
         Player player = GameControllerManager.instance.player;
+        Destroy(player.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject);
+        player.pd.weapon = Instantiate(weapon, player.hand);
         player.weapon = weapon;
-        //player.weaponSr.sprite = weapon.weaponSprite;
         player.weapons.Add(weapon);
         GameControllerManager.instance.uiCont.gameObject.SetActive(false);
     }
+
+    public UICard SetWeapons()
+    {
+        List<Weapon> weapon = new List<Weapon>();
+        int count = 0;
+        while(count < 2)
+        {
+            Weapon wp = weapons[Random.Range(0, weapons.Count)];
+
+            if (!weapon.Contains(wp))
+            {
+                weapon.Add(wp);
+                
+                spImage.sprite = wp.GetComponent<SpriteRenderer>().sprite;
+                count++;
+            }
+        }
+        return this;
+    }
     public UICard SetWeapon()
     {
-        this.weapon = weapons[Random.Range(0, weapons.Count)];
-        //spImage.sprite = weapon.weaponSprite;
-        Name = weapon.name;
+        Weapon randWeapon = weapons[Random.Range(0, weapons.Count)];
+        int count = 0;
+        while(count < 2)
+        {
+            if (randWeapon != this.weapon)
+            {
+                this.weapon = randWeapon;
+                spImage.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
+                Name = weapon.name;
+                count++;
+            }
+        }
         return this;
     }
 }
+

@@ -7,17 +7,24 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private UICard[] uiCards;
     public UICard uiCard;
+
     // Start is called before the first frame update
     void Start()
     {
-        CardSpawn();
+        //CardSpawn();
+        Spawn();
     }
 
     void CardSpawn()
     {
-        for(int i = 0; i < 2; i++)
+        
+    }
+
+    void Spawn()
+    {
+        foreach(var item in uiCards)
         {
-            uiCards[i].SetWeapon();
+            item.SetWeapons();
         }
     }
 }
