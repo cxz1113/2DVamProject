@@ -6,12 +6,12 @@ public class Shovel : Weapon
 {
     public override void Initialize()
     {
+        bulletPos = transform.GetChild(0).transform;
         wd.attack = 20;
         wd.speed = 4f;
         wd.fireTime = 0;
         wd.bullet = bullet;
-        wd.setParent = bulletPos;
-        wd.player = GameControllerManager.instance.player;
+        wd.p = GameControllerManager.instance.player;
         wd.enemy = GameControllerManager.instance.enemy;
         weaponDataType = WeaponDataType.Shovel;
     }
@@ -19,7 +19,6 @@ public class Shovel : Weapon
     void Start()
     {
         Initialize();    
-
     }
     void Update()
     {
@@ -29,18 +28,27 @@ public class Shovel : Weapon
             wd.fireTime = 0;
             BulletCreate();
         }
+        if(wd.p != null)
+        {
+            if (wd.p.pd.enemy != null)
+            {
+                // 몬스터 방향으로 Bullet 회전
+                Vector2 vec = transform.position - wd.p.pd.enemy.transform.position;
+                float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+                bulletPos.rotation = rotation;
+            }
+        }
     }
+
     public void BulletCreate()
     {
-        // 몬스터 방향으로 Bullet 회전
-        Vector2 vec = wd.player.transform.position - wd.enemy.transform.position;
-        float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle + 360, Vector3.forward);
-        GameControllerManager.instance.player.bulletPos.rotation = rotation;
-
-        wd.bullet = Instantiate(wd.bullet, GameControllerManager.instance.player.bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
-        wd.bullet.transform.SetParent(GameControllerManager.instance.player.parent);
-        wd.bullet.Initialize();
-        Destroy(wd.bullet.gameObject, 5f);
+        if (wd.p != null && wd.p.pd.enemy != null)
+        {
+            Bullet bullet = Instantiate(wd.bullet, bulletPos);
+            bullet.transform.SetParent(wd.p.parent);
+            bullet.Initialize();
+            Destroy(bullet.gameObject, 5f);
+        }
     }
 }

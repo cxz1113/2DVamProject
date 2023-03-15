@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 4}
   m_MinSize: {x: 875, y: 321}
   m_MaxSize: {x: 10000, y: 10000}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 90
+  controlID: 109
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 126
+  controlID: 25
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 16
+  controlID: 26
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -387,9 +387,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 3cc6ffff5ec7ffff908f00009a8f0000ba8f0000f68f00005e9000006a9000006e900000
+      m_SelectedIDs: 4a900000
+      m_LastClickedID: 36938
+      m_ExpandedIDs: 1811ffff222dffff2833ffff0646ffffe2c5fffff8c6ffff209000002a9000004a900000669000008690000094900000c8900000ea900000f8900000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -495,7 +495,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/2.Prefabs/Bullet
+    - Assets/2.Prefabs/Weapon
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
@@ -534,21 +534,21 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 480}
+    scrollPos: {x: 0, y: 348}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000348f0000608f0000628f0000648f0000668f00006a8f0000789100007e91000082910000f09600002e990000a69c0000c0a30000c6a30000
+    m_ExpandedIDs: ffffffff00000000c88f0000f48f0000f68f0000f88f0000fe8f0000629500007a9700008c990000a0a00000faa00000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Shovel
-      m_OriginalName: Shovel
+      m_Name: Gun
+      m_OriginalName: Gun
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 35560
+      m_UserData: 35658
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -965,9 +965,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -9.337118, y: -1.7418393, z: -0.17277555}
+    m_Target: {x: -13.300196, y: -1.7366686, z: -0.1290368}
     speed: 2
-    m_Value: {x: -9.337118, y: -1.7418393, z: -0.17277555}
+    m_Value: {x: -13.300196, y: -1.7366686, z: -0.1290368}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1018,9 +1018,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 10
+    m_Target: 22.15809
     speed: 2
-    m_Value: 10
+    m_Value: 22.15809
   m_Ortho:
     m_Target: 1
     speed: 2

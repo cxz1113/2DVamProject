@@ -20,7 +20,8 @@ public class BlueMan : Player
     void Start()
     {
         Initialize();
-        pd.weapon = Instantiate(weapon, weaponSet);
+        pd.weapon = Instantiate(weapon, hand);
+        pd.weapon.transform.localPosition = Vector2.zero;
         weapons.Add(weapon);
         direction = Direction.Stand;
         GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);

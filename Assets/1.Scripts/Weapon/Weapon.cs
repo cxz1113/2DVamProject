@@ -8,9 +8,8 @@ public struct WeaponData
     public float speed;
     public float fireTime;
     public Enemy enemy;
-    public Player player;
+    public Player p;
     public Bullet bullet;
-    public Transform setParent;
 }
 
 public enum WeaponDataType
@@ -30,7 +29,4 @@ public abstract class Weapon : MonoBehaviour
     public Transform bulletPos;
 
     public abstract void Initialize();
-
-
-
 }

@@ -34,9 +34,8 @@ public abstract class Player : MonoBehaviour
 
     public Weapon weapon;
     public List<Weapon> weapons;
-    public Transform bulletPos;
     public Transform parent;
-    public Transform weaponSet;    
+    public Transform hand;    
     public PlayerData pd = new PlayerData();    
     public Direction direction = Direction.Stand;
     public Canvas hpCanvas;
@@ -155,34 +154,19 @@ public abstract class Player : MonoBehaviour
         pd.level++;
     }
 
-    void BulletCreat()
-    {
-        if (pd.enemy != null)
-        {  
-            // 몬스터 방향으로 Bullet 회전
-            Vector2 vec = transform.position - pd.enemy.transform.position;
-            float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-            bulletPos.rotation = rotation;
-            
-            Weapon wp = Instantiate(weapon, weaponSet);
-            Bullet bullet = Instantiate(wp.bullet, bulletPos.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
-            bullet.transform.SetParent(parent);
-            Destroy(bullet.gameObject, 5f);
-        }        
-    }
-
     public IEnumerator ReLife()
     {
         bool show = false;
         for(int i = 0; i < 10; i++)
         {
             GetComponent<SpriteRenderer>().enabled = !show;
+            pd.weapon.GetComponent<SpriteRenderer>().enabled = !show;
             show = !show;
             yield return new WaitForSeconds(0.2f);
         }
         hpCanvas.gameObject.SetActive(false);
         GetComponent<SpriteRenderer>().enabled = true;
+        pd.weapon.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     void Die()
