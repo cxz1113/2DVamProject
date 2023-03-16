@@ -5,26 +5,29 @@ using UnityEngine.UI;
 using TMPro;
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private UICard[] uiCards;
-    public UICard uiCard;
+    public List<Weapon> weapons = new List<Weapon>();
 
     // Start is called before the first frame update
     void Start()
     {
-        //CardSpawn();
-        Spawn();
-    }
-
-    void CardSpawn()
-    {
         
     }
 
-    void Spawn()
+    public Weapon Card()
     {
-        foreach(var item in uiCards)
+        List<Weapon> weapon = new List<Weapon>();
+        int count = 0;
+        while(count < 3)
         {
-            item.SetWeapons();
+            Weapon wp = weapons[Random.Range(0, weapons.Count)];
+            if (weapon.Contains(wp))
+                return wp;
+            else
+            {
+                weapon.Add(wp);
+                count++;
+            }
         }
+        return weapon[Random.Range(0, weapon.Count)];
     }
 }

@@ -29,11 +29,6 @@ public class UICard : MonoBehaviour
         uiText.text = string.Format($"{Name}");
     }
 
-    internal void SetWeapon(object v)
-    {
-        throw new System.NotImplementedException();
-    }
-
     void OnButtonWeapon()
     {
         Player player = GameControllerManager.instance.player;

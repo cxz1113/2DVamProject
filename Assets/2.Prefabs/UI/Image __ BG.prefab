@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2837593488294162714}
-  - component: {fileID: 2837593488294162718}
+  - component: {fileID: 4021236428400282354}
   - component: {fileID: 2837593488294162719}
   - component: {fileID: 2837593488294162716}
   - component: {fileID: 2837593488294162689}
@@ -118,7 +118,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2837593488294162718
+--- !u!114 &4021236428400282354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,29 +130,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ffbfae1cc529a4e9fd87857736b2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btn: {fileID: 2837593488294162689}
-  spImage: {fileID: 2837593487096935138}
-  uiText: {fileID: 2837593488979117339}
-  image: []
-  weapons:
-  - {fileID: 762262878601745562, guid: 8c4ed2ad09ce4604082a143198689c2d, type: 3}
-  - {fileID: 8905057768628287598, guid: bf9df7c9a6be7884a93618bf0fa5eac4, type: 3}
-  - {fileID: 859434375979725806, guid: df958f68949402b4494c9ce84d85c805, type: 3}
-  - {fileID: 8070528593052146228, guid: 5adf32c326b2b9f4c91bd593f9f61a9f, type: 3}
-  - {fileID: 2177762062119222885, guid: 6e78a9c99df3b914eaf10e11c00eeca2, type: 3}
-  - {fileID: 9612916667047181, guid: e74f1112290d214409eb04499298c370, type: 3}
-  items:
-  - {fileID: 4411550641933896154, guid: e61395dec7a78e84e8bd1affd74c8a00, type: 3}
-  - {fileID: 3194264321431500628, guid: ec04375e6e2881044a68fea5f2ee3335, type: 3}
-  objects:
-  - {fileID: 4411550641933896133, guid: e61395dec7a78e84e8bd1affd74c8a00, type: 3}
-  - {fileID: 1719247857092295552, guid: ec04375e6e2881044a68fea5f2ee3335, type: 3}
-  - {fileID: 996931311669831547, guid: 8c4ed2ad09ce4604082a143198689c2d, type: 3}
-  - {fileID: 3050234334045228855, guid: bf9df7c9a6be7884a93618bf0fa5eac4, type: 3}
-  - {fileID: 4618397260753184945, guid: df958f68949402b4494c9ce84d85c805, type: 3}
-  - {fileID: 3809292286161520923, guid: 5adf32c326b2b9f4c91bd593f9f61a9f, type: 3}
-  - {fileID: 6067154020609229189, guid: 6e78a9c99df3b914eaf10e11c00eeca2, type: 3}
-  - {fileID: 274094944969081751, guid: e74f1112290d214409eb04499298c370, type: 3}
+  btn: {fileID: 0}
+  spImage: {fileID: 0}
+  uiText: {fileID: 0}
+  items: []
+  weapons: []
+  randWeapons: []
 --- !u!222 &2837593488294162719
 CanvasRenderer:
   m_ObjectHideFlags: 0
