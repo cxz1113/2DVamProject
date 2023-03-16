@@ -12,11 +12,10 @@ public class Card : MonoBehaviour
 
     public string Name { get; set; }
     Weapon weapon;
-
     // Start is called before the first frame update
     void Start()
     {
-        WeaponSet(GameControllerManager.instance.uiCont.Card());
+        btn.onClick.AddListener(OnButtonWeapon);
     }
 
     // Update is called once per frame
@@ -25,10 +24,19 @@ public class Card : MonoBehaviour
         weaponTxt.text = string.Format($"{Name}");
     }
 
-    void WeaponSet(Weapon card)
+    void OnButtonWeapon()
     {
-        weapon = card;
-        wpImage.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
+        Player player = GameControllerManager.instance.player;
+        Destroy(player.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject);
+        player.pd.weapon = Instantiate(weapon, player.hand);
+        player.weapons.Add(weapon);
+        GameControllerManager.instance.uiCont.gameObject.SetActive(false);
+        player.IsLevel = false;
+    }
+    public void WeaponSet(Weapon weapon)
+    {
+        this.weapon = weapon;
         Name = weapon.name;
+        wpImage.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
     }
 }

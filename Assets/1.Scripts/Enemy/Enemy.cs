@@ -20,7 +20,6 @@ public struct EnemyData
     public int level;
     public Player player;
     public EnemyState state;
-    public GameObject[] itemObj;
 }
 
 public abstract class Enemy : MonoBehaviour
@@ -96,7 +95,7 @@ public abstract class Enemy : MonoBehaviour
     float moveSaveTime = 0;
     public void Move()
     {
-        if (ed.player.IsHide || !ed.player.IsAlive)
+        if (ed.player.IsHide || !ed.player.IsAlive || ed.player.IsLevel)
             return;
 
         Vector3 distance = ed.player.transform.position - transform.position;

@@ -12,7 +12,6 @@ public class Goblin : Enemy
         ed.level = 1;
         ed.player = FindAnyObjectByType<Player>();
         IsAlive = true;
-        ed.itemObj = items;
 
         base.Initialize();
     }

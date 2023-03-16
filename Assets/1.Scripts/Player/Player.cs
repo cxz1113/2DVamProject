@@ -42,6 +42,7 @@ public abstract class Player : MonoBehaviour
     
     public bool IsAlive { get; set; }
     public bool IsHide { get; set; }
+    public bool IsLevel { get; set; }
     public float HP
     {
         get { return pd.curHp; }
@@ -100,6 +101,9 @@ public abstract class Player : MonoBehaviour
         Vector3 dir = new Vector3(x, y, 0f);
         transform.Translate(dir * Time.deltaTime * pd.speed);
 
+        if (IsLevel)
+            return;
+
         // FlipX를 이용하여 좌우반전
         if(x < 0)
         {
@@ -152,6 +156,11 @@ public abstract class Player : MonoBehaviour
         pd.speed += ((pd.level * (pd.level + 1)) * 0.5f) / 100;
         exImage.fillAmount = 0;
         pd.level++;
+        if(pd.level % 5 == 1)
+        {
+            IsLevel = true;
+            GameControllerManager.instance.uiCont.gameObject.SetActive(true);
+        }
     }
 
     public IEnumerator ReLife()

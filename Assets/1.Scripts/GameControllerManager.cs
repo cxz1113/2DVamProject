@@ -7,7 +7,7 @@ public class GameControllerManager : MonoBehaviour
     public static GameControllerManager instance;
     public Player player;
     public UIManager uiCont;
-    public Enemy enemy;
+    public Enemy[] enemys;
 
     void Awake() { instance = this; }   
 }

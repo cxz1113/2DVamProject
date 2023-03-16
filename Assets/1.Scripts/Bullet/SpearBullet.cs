@@ -6,8 +6,8 @@ public class SpearBullet : Bullet
 {
     public override void Initialize()
     {
-        bd.attack = 20;
-        bd.speed = 4f;
+        bd.attack = 30;
+        bd.speed = 10f;
         bd.fireTime = 0;
     }
 

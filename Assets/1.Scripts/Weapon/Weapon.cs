@@ -7,8 +7,7 @@ public struct WeaponData
     public float attack;
     public float speed;
     public float fireTime;
-    public Enemy enemy;
-    public Player p;
+    public Player player;
     public Bullet bullet;
 }
 
