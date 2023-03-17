@@ -9,6 +9,7 @@ public class SlasherBullet : Bullet
         bd.attack = 20;
         bd.speed = 6f;
         bd.fireTime = 0;
+        bd.target = transform.GetChild(0).gameObject;
     }
 
     void Start()
@@ -18,18 +19,12 @@ public class SlasherBullet : Bullet
 
     void Update()
     {
-        //Move();
-        Test();
+        Move();
     }
 
     public override void Move()
     {
         transform.Translate(Vector2.up * Time.deltaTime * bd.speed);
-        transform.rotation = Quaternion.Euler(0f, 0f, 15);
-    }
-
-    void Test()
-    {
-        transform.rotation = Quaternion.Euler(0f, 0f, 4f);
+        
     }
 }

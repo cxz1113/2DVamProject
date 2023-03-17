@@ -9,6 +9,7 @@ public struct BulletData
     public float fireTime;
     public Player player;
     public Enemy enemy;
+    public GameObject target;
 }
 public abstract class Bullet : MonoBehaviour
 {
