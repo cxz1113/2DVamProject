@@ -22,29 +22,32 @@ public class Slasher : Weapon
         if (wd.fireTime > 1f)
         {
             wd.fireTime = 0;
-            BulletCreate();
+            if(!wd.player.IsLevel)
+                BulletCreate();
         }
 
-        if (wd.player != null)
+        /*if (wd.player.pd.enemy != null && wd.player.pd.enemy.IsAlive)
         {
-            if (wd.player.pd.enemy != null)
-            {
-                // 몬스터 방향으로 Bullet 회전
-                Vector2 vec = transform.position - wd.player.pd.enemy.transform.position;
-                float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
-                Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-                bulletPos.rotation = rotation;
-            }
-        }
+            // 몬스터 방향으로 Bullet 회전
+            Vector2 vec = transform.position - wd.player.pd.enemy.transform.position;
+            float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+            bulletPos.rotation = rotation;
+        }*/
     }
 
     public void BulletCreate()
     {
-        if (wd.player != null && wd.player.pd.enemy != null)
+        if (wd.player.pd.enemy != null)
         {
+            Vector2 vec = transform.position - wd.player.pd.enemy.transform.position;
+            float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+            bulletPos.rotation = rotation;
+
             Bullet bullet = Instantiate(this.bullet, bulletPos);
             bullet.transform.SetParent(wd.player.parent);
-            Destroy(bullet.gameObject, 5f);
+            Destroy(bullet.gameObject, 2f);
         }
     }
 }   

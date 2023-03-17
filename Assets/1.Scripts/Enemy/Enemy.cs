@@ -130,6 +130,7 @@ public abstract class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
+            
             HP -= collision.gameObject.GetComponent<Bullet>().bd.attack;            
             if (IsAlive)
                 GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
@@ -137,6 +138,7 @@ public abstract class Enemy : MonoBehaviour
             StartCoroutine("BackMove");
             Destroy(collision.gameObject);
         }
+        
         else if(collision.CompareTag("player"))
         {
             Player player = collision.GetComponent<Player>();
@@ -144,6 +146,15 @@ public abstract class Enemy : MonoBehaviour
             player.HP -= ed.attack;
             if (player.IsAlive)
                 StartCoroutine(player.ReLife());
+        }
+
+        else if(collision.CompareTag("SBullet"))
+        {
+            HP -= collision.gameObject.GetComponent<Bullet>().bd.attack;
+            if (IsAlive)
+                GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
+            StopCoroutine("BackMove");
+            StartCoroutine("BackMove");
         }
     }
 

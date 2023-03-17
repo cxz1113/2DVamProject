@@ -9,12 +9,11 @@ public struct BulletData
     public float fireTime;
     public Player player;
     public Enemy enemy;
-    public GameObject target;
 }
 public abstract class Bullet : MonoBehaviour
 {
     public BulletData bd = new BulletData();
-
+    [HideInInspector] public GameObject move;
     public abstract void Initialize();
 
     public abstract void Move();

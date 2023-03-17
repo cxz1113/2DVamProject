@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - player
   - Items
+  - SBullet
   layers:
   - Default
   - TransparentFX

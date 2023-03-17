@@ -15,6 +15,8 @@ public class Map : MonoBehaviour
             return;
         else if (collision.CompareTag("Items"))
             return;
+        else if (collision.CompareTag("SBullet"))
+            return;
         Vector3 playerPos = GameControllerManager.instance.player.transform.position;
         Vector3 mapPos = transform.position;
 

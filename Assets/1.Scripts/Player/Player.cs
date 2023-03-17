@@ -139,12 +139,12 @@ public abstract class Player : MonoBehaviour
         foreach (var target in targets)
         {
             float distance = Vector3.Distance(transform.position, target.transform.position);
-            if(distance < dis)
+            if (distance < dis)
             {
                 pd.enemy = target;
                 dis = distance;
             }
-        }      
+        }
     }
 
     void LevelUp()
@@ -156,7 +156,7 @@ public abstract class Player : MonoBehaviour
         pd.speed += ((pd.level * (pd.level + 1)) * 0.5f) / 100;
         exImage.fillAmount = 0;
         pd.level++;
-        if(pd.level % 5 == 1)
+        if((pd.level / 5) == 1)
         {
             IsLevel = true;
             GameControllerManager.instance.uiCont.gameObject.SetActive(true);
@@ -191,11 +191,12 @@ public abstract class Player : MonoBehaviour
     {
         IsHide = true;
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.2f);
-
+        pd.weapon.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.2f);
 
         yield return new WaitForSeconds(3f);
 
         IsHide = false;
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        pd.weapon.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
     }
 }

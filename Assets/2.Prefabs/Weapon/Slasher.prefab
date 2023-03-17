@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d97a388001956894fb124a9dde212251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDataType: 0
+  weaponDataType: 2
   bullet: {fileID: 3648919091758411449, guid: 884a127ea9d721f49a606249fa451766, type: 3}
   bulletPos: {fileID: 0}
 --- !u!212 &1249214972841761147
