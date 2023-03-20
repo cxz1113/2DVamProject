@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class ShotGun : Weapon
 {
+    public List<Transform> fireTrans;
+    public Transform rotate;
+    int[] angleT = { 60, 75, 90, 105, 120 };
+
     public override void Initialize()
     {
         bulletPos = transform.GetChild(0).transform;
         wd.player = GameControllerManager.instance.player;
-        weaponDataType = WeaponDataType.Slasher;
+        weaponDataType = WeaponDataType.ShotGun;
     }
 
     void Start()
@@ -18,12 +22,12 @@ public class ShotGun : Weapon
 
     void Update()
     {
-        Flip();
+        //Flip();
         wd.fireTime += Time.deltaTime;
         if (wd.fireTime > 1f)
         {
             wd.fireTime = 0;
-            BulletCreate();
+            FireTrans();
         }
     }
 
@@ -42,16 +46,48 @@ public class ShotGun : Weapon
         }
     }
 
-    void Flip()
+    void FireTrans()
     {
-        if(wd.player.weapon.GetComponent<SpriteRenderer>().flipX)
+        int randt = Random.Range(0, angleT.Length);
+        if(wd.player.pd.enemy != null)
         {
-            bulletPos.Translate(new Vector2(0.7f, 0.09f));
-        }
-        else
-        {
-            bulletPos.Translate(new Vector2(-0.7f, 0.09f));
+            if (fireTrans.Count < 5)
+            {
+                foreach (var angleRo in angleT)
+                {
+                    Vector2 vec = transform.position - wd.player.pd.enemy.transform.position;
+                    float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+                    Quaternion rotation = Quaternion.AngleAxis(angle + angleRo, Vector3.forward);
+                    rotate.rotation = rotation;
+                    fireTrans.Add(rotate);
+                }
+            }
 
+            foreach(var fire in fireTrans)
+            {
+                Bullet bullet = Instantiate(this.bullet, fire);
+                bullet.transform.SetParent(wd.player.parent);
+                Destroy(bullet.gameObject, 1f);
+            }
         }
+    }
+
+    void FirTransRo()
+    {
+        int randt = Random.Range(0, angleT.Length);
+        if(wd.player.pd.enemy != null)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Vector2 vec = transform.position - wd.player.pd.enemy.transform.position;
+                float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle + angleT[randt], Vector3.forward);
+                //fireTrans[randFire].rotation = rotation;
+
+                Bullet bullet = Instantiate(this.bullet, fireTrans[i]);
+                bullet.transform.SetParent(wd.player.parent);
+                Destroy(bullet.gameObject, 1f);
+            }
+        }        
     }
 }

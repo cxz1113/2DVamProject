@@ -108,14 +108,16 @@ public abstract class Player : MonoBehaviour
         if(x < 0)
         {
             pd.weapon.GetComponent<SpriteRenderer>().flipX = sr.flipX = true;
+            pd.weapon.transform.GetChild(0).transform.localPosition = new Vector2(-0.7f, 0.09f);
         }
         else if(x > 0)
         {
             pd.weapon.GetComponent<SpriteRenderer>().flipX = sr.flipX = false;
+            pd.weapon.transform.GetChild(0).transform.localPosition = new Vector2(0.7f, 0.09f);
         }
 
         // 왼쪽 또는 오른쪽 이동시 Sprite 사용
-        if((x != 0 || y != 0) && direction != Direction.Run)
+        if ((x != 0 || y != 0) && direction != Direction.Run)
         {
             direction = Direction.Run;
             GetComponent<SpriteAnimation>().SetSprite(moveSp, 0.2f);
