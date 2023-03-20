@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDataType: 2
+  seletSprite: {fileID: -344242777, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   bullet: {fileID: 3648919091758411449, guid: 884a127ea9d721f49a606249fa451766, type: 3}
   bulletPos: {fileID: 0}
 --- !u!212 &1249214972841761147

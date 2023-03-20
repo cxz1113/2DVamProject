@@ -11,6 +11,7 @@ TagManager:
   - player
   - Items
   - SBullet
+  - MBullet
   layers:
   - Default
   - TransparentFX

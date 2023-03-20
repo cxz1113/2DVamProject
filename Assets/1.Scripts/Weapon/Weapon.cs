@@ -8,7 +8,6 @@ public struct WeaponData
     public float speed;
     public float fireTime;
     public Player player;
-    public Bullet bullet;
 }
 
 public enum WeaponDataType
@@ -24,6 +23,7 @@ public abstract class Weapon : MonoBehaviour
 {
     public WeaponData wd = new WeaponData();
     public WeaponDataType weaponDataType;
+    public Sprite seletSprite;
     public Bullet bullet;
     public Transform bulletPos;
 

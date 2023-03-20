@@ -47,8 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDataType: 0
+  seletSprite: {fileID: -181907988, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   bullet: {fileID: 4367695034758908842, guid: b6763781b9f7b894cba2f4a44d3213a7, type: 3}
   bulletPos: {fileID: 0}
+  meleeWeapon: {fileID: -454771248965463381, guid: abce9367e7772b54f9e3523f044bb003, type: 3}
 --- !u!212 &4411574328394922507
 SpriteRenderer:
   m_ObjectHideFlags: 0

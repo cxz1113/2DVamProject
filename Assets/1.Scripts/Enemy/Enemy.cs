@@ -130,16 +130,15 @@ public abstract class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
-            
-            HP -= collision.gameObject.GetComponent<Bullet>().bd.attack;            
+            HP -= collision.gameObject.GetComponent<Bullet>().bd.attack;
             if (IsAlive)
                 GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
             StopCoroutine("BackMove");
             StartCoroutine("BackMove");
             Destroy(collision.gameObject);
         }
-        
-        else if(collision.CompareTag("player"))
+
+        else if (collision.CompareTag("player"))
         {
             Player player = collision.GetComponent<Player>();
             player.hpCanvas.gameObject.SetActive(true);
@@ -148,9 +147,17 @@ public abstract class Enemy : MonoBehaviour
                 StartCoroutine(player.ReLife());
         }
 
-        else if(collision.CompareTag("SBullet"))
+        else if (collision.CompareTag("SBullet"))
         {
             HP -= collision.gameObject.GetComponent<Bullet>().bd.attack;
+            if (IsAlive)
+                GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
+            StopCoroutine("BackMove");
+            StartCoroutine("BackMove");
+        }
+        else if(collision.CompareTag("MBullet"))
+        {
+            HP -= collision.gameObject.GetComponent<MeleeWeapon>().md.attack;
             if (IsAlive)
                 GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
             StopCoroutine("BackMove");

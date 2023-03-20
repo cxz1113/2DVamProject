@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Shovel : Weapon
 {
+    public MeleeWeapon meleeWeapon;
+
     public override void Initialize()
     {
         bulletPos = transform.GetChild(0).transform;

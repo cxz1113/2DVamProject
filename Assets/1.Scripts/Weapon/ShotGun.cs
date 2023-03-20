@@ -22,34 +22,27 @@ public class ShotGun : Weapon
 
     void Update()
     {
-        //Flip();
         wd.fireTime += Time.deltaTime;
-        if (wd.fireTime > 1f)
+        if (wd.fireTime > 3f)
         {
             wd.fireTime = 0;
-            FireTrans();
+            StartCoroutine("FireTrans");
         }
     }
 
-    public void BulletCreate()
+    public void BulletCreate(List<Transform> trans)
     {
-        if (wd.player.pd.enemy != null)
+        foreach(var fire in trans)
         {
-            Vector2 vec = transform.position - wd.player.pd.enemy.transform.position;
-            float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-            bulletPos.rotation = rotation;
-
-            Bullet bullet = Instantiate(this.bullet, bulletPos);
+            Bullet bullet = Instantiate(this.bullet, fire);
             bullet.transform.SetParent(wd.player.parent);
             Destroy(bullet.gameObject, 2f);
         }
     }
 
-    void FireTrans()
+    IEnumerator FireTrans()
     {
-        int randt = Random.Range(0, angleT.Length);
-        if(wd.player.pd.enemy != null)
+        if (wd.player.pd.enemy != null)
         {
             if (fireTrans.Count < 5)
             {
@@ -60,34 +53,15 @@ public class ShotGun : Weapon
                     Quaternion rotation = Quaternion.AngleAxis(angle + angleRo, Vector3.forward);
                     rotate.rotation = rotation;
                     fireTrans.Add(rotate);
+
+                    int rand = Random.Range(0, fireTrans.Count);
+                    Bullet bullet = Instantiate(this.bullet, fireTrans[rand]);
+                    bullet.transform.SetParent(wd.player.parent);
+                    Destroy(bullet.gameObject, 1f);
                 }
+                fireTrans.Clear();
             }
-
-            foreach(var fire in fireTrans)
-            {
-                Bullet bullet = Instantiate(this.bullet, fire);
-                bullet.transform.SetParent(wd.player.parent);
-                Destroy(bullet.gameObject, 1f);
-            }
+            yield return new WaitForSeconds(1f);
         }
-    }
-
-    void FirTransRo()
-    {
-        int randt = Random.Range(0, angleT.Length);
-        if(wd.player.pd.enemy != null)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                Vector2 vec = transform.position - wd.player.pd.enemy.transform.position;
-                float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
-                Quaternion rotation = Quaternion.AngleAxis(angle + angleT[randt], Vector3.forward);
-                //fireTrans[randFire].rotation = rotation;
-
-                Bullet bullet = Instantiate(this.bullet, fireTrans[i]);
-                bullet.transform.SetParent(wd.player.parent);
-                Destroy(bullet.gameObject, 1f);
-            }
-        }        
     }
 }

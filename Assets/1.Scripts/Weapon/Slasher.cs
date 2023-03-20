@@ -25,15 +25,6 @@ public class Slasher : Weapon
             if(!wd.player.IsLevel)
                 BulletCreate();
         }
-
-        /*if (wd.player.pd.enemy != null && wd.player.pd.enemy.IsAlive)
-        {
-            // 몬스터 방향으로 Bullet 회전
-            Vector2 vec = transform.position - wd.player.pd.enemy.transform.position;
-            float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-            bulletPos.rotation = rotation;
-        }*/
     }
 
     public void BulletCreate()

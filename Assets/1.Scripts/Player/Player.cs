@@ -13,6 +13,7 @@ public struct PlayerData
     public float maxExperience;
     public float curExperience;
     public Weapon weapon;
+    public MeleeWeapon meleeWeapon;
     public Enemy enemy;
 }
 public enum Direction
@@ -31,11 +32,13 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private Image exImage;
     [SerializeField] private TMP_Text levelTxt;
     [SerializeField] private Image hpImage;
+    public List<MeleeWeapon> mWeapons;
 
     public Weapon weapon;
     public List<Weapon> weapons;
     public Transform parent;
-    public Transform hand;    
+    public Transform hand;
+    public List<Transform> meleeHands;
     public PlayerData pd = new PlayerData();    
     public Direction direction = Direction.Stand;
     public Canvas hpCanvas;
@@ -72,8 +75,6 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-    float fireTime = 0;
-    
     public abstract void Initialize();
 
     void Update()
@@ -85,12 +86,15 @@ public abstract class Player : MonoBehaviour
 
         Move();
         FindEnemy();
-        fireTime += Time.deltaTime;
-        /*if (fireTime > 1f)
+        
+        if(Input.GetKeyDown(KeyCode.F1))
         {
-            fireTime = 0;
-            BulletCreat();
-        }*/
+            GameControllerManager.instance.uiCont.transform.gameObject.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            GameControllerManager.instance.uiCont.transform.gameObject.SetActive(false);
+        }
     }
 
     public void Move()
