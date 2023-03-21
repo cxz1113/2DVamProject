@@ -32,7 +32,14 @@ public class Card : MonoBehaviour
             Shovel shovel = weapon.GetComponentInChildren<Shovel>();
             if(weapon.gameObject.name == "Shovel" && !player.mWeapons.Contains(shovel.meleeWeapon))
             {
-                player.mWeapons.Add(Instantiate(shovel.meleeWeapon, player.meleeHands[count]));
+                if (player.mWeapons.Count >= 6)
+                {
+                    shovel.meleeWeapon.md.attack += 100;
+                }
+                else
+                {
+                    player.mWeapons.Add(Instantiate(shovel.meleeWeapon, player.meleeHands[count]));
+                }
             }
         }
         Destroy(player.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject);
