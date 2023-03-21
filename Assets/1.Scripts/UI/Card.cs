@@ -29,18 +29,10 @@ public class Card : MonoBehaviour
         int count = player.mWeapons.Count;
         if(player.weapons.Contains(weapon))
         {
-            if(weapon.gameObject.name == "Shovel")
+            Shovel shovel = weapon.GetComponentInChildren<Shovel>();
+            if(weapon.gameObject.name == "Shovel" && !player.mWeapons.Contains(shovel.meleeWeapon))
             {
-                Shovel shovel = weapon.GetComponentInChildren<Shovel>();
-                
-                if(player.mWeapons.Contains(shovel.meleeWeapon))
-                {
-                    player.mWeapons.Add(Instantiate(shovel.meleeWeapon, player.meleeHands[0+count]));
-                }
-                else
-                {
-                    player.mWeapons.Add(Instantiate(shovel.meleeWeapon, player.meleeHands[0]));
-                }
+                player.mWeapons.Add(Instantiate(shovel.meleeWeapon, player.meleeHands[count]));
             }
         }
         Destroy(player.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject);

@@ -39,6 +39,8 @@ public abstract class Player : MonoBehaviour
     public Transform parent;
     public Transform hand;
     public List<Transform> meleeHands;
+    public Transform melee;
+    public Transform test;
     public PlayerData pd = new PlayerData();    
     public Direction direction = Direction.Stand;
     public Canvas hpCanvas;
@@ -95,6 +97,7 @@ public abstract class Player : MonoBehaviour
         {
             GameControllerManager.instance.uiCont.transform.gameObject.SetActive(false);
         }
+        test.transform.RotateAround(transform.position, Vector3.forward, Time.deltaTime * 150);
     }
 
     public void Move()
@@ -204,5 +207,25 @@ public abstract class Player : MonoBehaviour
         IsHide = false;
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         pd.weapon.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+    }
+
+    public void MPosition()
+    {
+
+        
+        Vector2 vec = melee.transform.position - transform.position;
+        float angle = Mathf.Atan2(vec.x, vec.y) * Mathf.Rad2Deg;
+
+        for (int i = 0; i < 5; i++)
+        {
+            Quaternion rotation = Quaternion.AngleAxis(angle+60, Vector3.up);
+            Debug.Log(angle);
+            transform.rotation = rotation;
+            meleeHands.Add(Instantiate(melee, test));
+        }
+    }
+
+    public void Test()
+    {
     }
 }

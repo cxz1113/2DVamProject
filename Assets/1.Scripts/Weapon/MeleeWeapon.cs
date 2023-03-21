@@ -17,7 +17,7 @@ public abstract class MeleeWeapon : MonoBehaviour
 
     void Update()
     {
-        Move();
+        //Move();
     }
 
     void Move()
