@@ -26,6 +26,6 @@ public class BlueMan : Player
         weapons.Add(weapon);
         direction = Direction.Stand;
         GetComponent<SpriteAnimation>().SetSprite(idleSp, 0.2f);
-        MPosition();
+        //MPosition();
     }
 }

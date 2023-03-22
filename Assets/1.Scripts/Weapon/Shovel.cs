@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shovel : Weapon
 {
-    public MeleeWeapon meleeWeapon;
+    public Weapon meleeWeapon;
 
     public override void Initialize()
     {

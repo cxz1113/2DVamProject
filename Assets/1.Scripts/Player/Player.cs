@@ -32,7 +32,6 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private Image exImage;
     [SerializeField] private TMP_Text levelTxt;
     [SerializeField] private Image hpImage;
-    public List<MeleeWeapon> mWeapons;
 
     public Weapon weapon;
     public List<Weapon> weapons;
@@ -40,7 +39,6 @@ public abstract class Player : MonoBehaviour
     public Transform hand;
     public List<Transform> meleeHands;
     public Transform melee;
-    public Transform test;
     public PlayerData pd = new PlayerData();    
     public Direction direction = Direction.Stand;
     public Canvas hpCanvas;
@@ -98,37 +96,10 @@ public abstract class Player : MonoBehaviour
         {
             GameControllerManager.instance.uiCont.transform.gameObject.SetActive(false);
         }
-        melee.Rotate(Vector3.forward * Time.deltaTime * 150);
+        melee.transform.Rotate(Vector3.forward * Time.deltaTime * 150);
         
 
-        /*if(Input.GetKeyDown(KeyCode.F7))
-        {
-            testCnt++;
-
-            if(testCnt >= meleeHands.Count - 1)
-            {
-                testCnt = meleeHands.Count - 1;
-            }
-
-            foreach(var item in meleeHands)
-            {
-                item.gameObject.SetActive(false);
-            }
-
-            int val = 360 / testCnt;
-            int tempVal = val;
-            for (int i = 0; i < testCnt; i++)
-            {
-                meleeHands[i].gameObject.SetActive(true);
-                meleeHands[i].rotation = Quaternion.Euler(new Vector3(0f, 0f, tempVal));
-                tempVal += val;
-            }
-
-            melee.transform.rotation = Quaternion.Euler(Vector3.zero);
-        }
-
-        if(testCnt > 0)
-            melee.transform.Rotate(Vector3.forward * Time.deltaTime * 150);*/
+        
     }
 
     public void Move()
@@ -238,6 +209,38 @@ public abstract class Player : MonoBehaviour
         IsHide = false;
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         pd.weapon.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+    }
+
+    public void MeleeRotate()
+    {
+        /*if(Input.GetKeyDown(KeyCode.F7))
+        {
+            testCnt++;
+
+            if(testCnt >= meleeHands.Count - 1)
+            {
+                testCnt = meleeHands.Count - 1;
+            }
+
+            foreach(var item in meleeHands)
+            {
+                item.gameObject.SetActive(false);
+            }
+
+            int val = 360 / testCnt;
+            int tempVal = val;
+            for (int i = 0; i < testCnt; i++)
+            {
+                meleeHands[i].gameObject.SetActive(true);
+                meleeHands[i].rotation = Quaternion.Euler(new Vector3(0f, 0f, tempVal));
+                tempVal += val;
+            }
+
+            melee.transform.rotation = Quaternion.Euler(Vector3.zero);
+        }
+
+        if(testCnt > 0)
+            melee.transform.Rotate(Vector3.forward * Time.deltaTime * 150);*/
     }
 
     public void MPosition()

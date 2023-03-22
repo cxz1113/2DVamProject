@@ -8,6 +8,7 @@ public struct WeaponData
     public float speed;
     public float fireTime;
     public Player player;
+    public int level;
 }
 
 public enum WeaponDataType
