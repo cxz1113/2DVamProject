@@ -79,6 +79,7 @@ public abstract class Player : MonoBehaviour
 
     public abstract void Initialize();
 
+    int testCnt = 0;
     void Update()
     {
         if (!IsAlive)
@@ -97,10 +98,37 @@ public abstract class Player : MonoBehaviour
         {
             GameControllerManager.instance.uiCont.transform.gameObject.SetActive(false);
         }
-        foreach(var item in meleeHands)
+        melee.Rotate(Vector3.forward * Time.deltaTime * 150);
+        
+
+        /*if(Input.GetKeyDown(KeyCode.F7))
         {
-            item.transform.RotateAround(transform.position, Vector3.forward, Time.deltaTime * 150);
+            testCnt++;
+
+            if(testCnt >= meleeHands.Count - 1)
+            {
+                testCnt = meleeHands.Count - 1;
+            }
+
+            foreach(var item in meleeHands)
+            {
+                item.gameObject.SetActive(false);
+            }
+
+            int val = 360 / testCnt;
+            int tempVal = val;
+            for (int i = 0; i < testCnt; i++)
+            {
+                meleeHands[i].gameObject.SetActive(true);
+                meleeHands[i].rotation = Quaternion.Euler(new Vector3(0f, 0f, tempVal));
+                tempVal += val;
+            }
+
+            melee.transform.rotation = Quaternion.Euler(Vector3.zero);
         }
+
+        if(testCnt > 0)
+            melee.transform.Rotate(Vector3.forward * Time.deltaTime * 150);*/
     }
 
     public void Move()
@@ -215,14 +243,16 @@ public abstract class Player : MonoBehaviour
     public void MPosition()
     {
         int[] radian = { 60, 120, 180, 240, 300, 360 };
+        int[] radianP = { -30, 30, 90, 150, -150, -90 };
 
         for (int i = 0; i < 6; i++)
         {
-            Vector2 vec = transform.position - meleeHands[i].transform.position;
-            float angle = Mathf.Atan2(vec.x, vec.y) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            meleeHands[i].rotation = rotation;
             meleeHands[i].position = new Vector3(Mathf.Cos(radian[i] * Mathf.Deg2Rad), Mathf.Sin((radian[i]) * Mathf.Deg2Rad));
+            /*Vector2 vec = transform.position - meleeHands[i].transform.position;
+            float angle = Mathf.Atan2(vec.x, vec.y) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(360/ angle , Vector3.forward);*/
+
+            meleeHands[i].rotation = Quaternion.Euler(0, 0, radianP[i]);
         }
     }
 }
