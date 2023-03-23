@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlueMan : Player
+public class Yeongmi : Player
 {
     public override void Initialize()
     {
-        pd.maxHp = 50;
+        pd.maxHp = 35;
         pd.curHp = pd.maxHp;
-        pd.speed = 4.5f;
-        pd.attack = 5;
+        pd.speed = 7f;
         pd.level = 1;
         pd.maxExperience = ((pd.level * (pd.level + 1)) * 25) - 50;
         pd.curExperience = 0;

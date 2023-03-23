@@ -8,6 +8,9 @@ public class GameControllerManager : MonoBehaviour
     public Player player;
     public UIManager uiCont;
     public Enemy[] enemys;
-
-    void Awake() { instance = this; }   
+    public Transform playerStart;
+    void Awake() 
+    { 
+        instance = this;
+    }   
 }

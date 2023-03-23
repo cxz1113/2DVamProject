@@ -70,7 +70,6 @@ public class Card : MonoBehaviour
         this.weapon = weapon;
         Name = weapon.name;
         wpImage.sprite = weapon.seletSprite;
-        //this.weapon.Initialize();
         Debug.Log(weapon.Level);
     }
 }

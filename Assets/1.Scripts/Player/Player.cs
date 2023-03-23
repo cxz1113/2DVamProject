@@ -77,7 +77,6 @@ public abstract class Player : MonoBehaviour
 
     public abstract void Initialize();
 
-    int testCnt = 0;
     void Update()
     {
         if (!IsAlive)
@@ -97,9 +96,6 @@ public abstract class Player : MonoBehaviour
             GameControllerManager.instance.uiCont.transform.gameObject.SetActive(false);
         }
         melee.transform.Rotate(Vector3.forward * Time.deltaTime * 150);
-        
-
-        
     }
 
     public void Move()
