@@ -18,6 +18,13 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         spawnDelay += Time.deltaTime;
+        if(spawnDelay > 1f)
+        {
+            spawnDelay = 0;
+            Phase4(prefabs, trans);
+        }
+
+        /*spawnDelay += Time.deltaTime;
         if(spawnDelay > 1.5f)
         {
             spawnDelay = 0;
@@ -37,7 +44,7 @@ public class SpawnManager : MonoBehaviour
             {
                 Phase4(prefabs, trans);
             }
-        }        
+        }*/
     }
 
 

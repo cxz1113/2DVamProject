@@ -14,12 +14,14 @@ public class Shovel : Weapon
         wd.fireTime = 0;
         wd.player = GameControllerManager.instance.player;
         weaponDataType = WeaponDataType.Shovel;
+        wd.level = 1;
     }
 
     void Start()
     {
         Initialize();    
     }
+
     void Update()
     {
         wd.fireTime += Time.deltaTime;

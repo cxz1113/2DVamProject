@@ -155,9 +155,10 @@ public abstract class Enemy : MonoBehaviour
             StopCoroutine("BackMove");
             StartCoroutine("BackMove");
         }
+
         else if(collision.CompareTag("MBullet"))
         {
-            HP -= collision.gameObject.GetComponent<MeleeWeapon>().md.attack;
+            HP -= collision.gameObject.GetComponent<Weapon>().wd.attack;
             if (IsAlive)
                 GetComponent<SpriteAnimation>().SetSprite(hitSp[0], moveSp, 0.2f);
             StopCoroutine("BackMove");

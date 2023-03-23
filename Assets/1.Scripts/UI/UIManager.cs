@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
         while(count < 3)
         {
             Weapon wp = weapons[Random.Range(0, weapons.Count)];
+            wp.Initialize();
             if (!weapon.Contains(wp))
             {
                 weapon.Add(wp);

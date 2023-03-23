@@ -26,7 +26,6 @@ public class Card : MonoBehaviour
     void OnButtonWeapon()
     {
         Player player = GameControllerManager.instance.player;
-        weapon.wd.level++;
         if (player.weapons.Contains(weapon))
         {
             Shovel shovel = weapon.GetComponentInChildren<Shovel>();
@@ -44,21 +43,22 @@ public class Card : MonoBehaviour
                     {
                         item.gameObject.SetActive(false);
                     }
-
-                    int val = 360 / weapon.wd.level;
+                        
+                    int val = 360 / weapon.Level;
                     int tempVal = val;
-                    for (int i = 0; i <= weapon.wd.level; i++)
+                    for (int i = 0; i < weapon.wd.level; i++)
                     {
                         player.meleeHands[i].gameObject.SetActive(true);
                         player.meleeHands[i].rotation = Quaternion.Euler(new Vector3(0f, 0f, tempVal));
                         tempVal += val;
                         Debug.Log(tempVal);
                     }
-                    player.melee.transform.rotation = Quaternion.Euler(Vector3.zero);
                 }
             }
+            weapon.wd.level++;
             Debug.Log(weapon.wd.level);
         }
+        Destroy(player.transform.GetChild(1).transform.GetChild(0).gameObject);
         player.pd.weapon = Instantiate(weapon, player.hand);
         player.weapons.Add(weapon);
         GameControllerManager.instance.uiCont.gameObject.SetActive(false);
@@ -70,5 +70,7 @@ public class Card : MonoBehaviour
         this.weapon = weapon;
         Name = weapon.name;
         wpImage.sprite = weapon.seletSprite;
+        //this.weapon.Initialize();
+        Debug.Log(weapon.Level);
     }
 }

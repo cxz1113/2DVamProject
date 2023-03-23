@@ -13,6 +13,5 @@ public class MeleeShovel : Weapon
     void Start()
     {
         Initialize();
-        transform.localPosition = Vector2.zero;
     }
 }
