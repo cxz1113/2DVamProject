@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 public class SelectCard : MonoBehaviour
 {
-    public static SelectCard instance;
+    public static SelectCard Instance;
 
     [SerializeField] private Button btn;
     [SerializeField] private TMP_Text nameTxt;
@@ -14,17 +14,14 @@ public class SelectCard : MonoBehaviour
     [SerializeField] private TMP_Text hpTxt;
     [SerializeField] private TMP_Text speedTxt;
     [SerializeField] private TMP_Text weaponTxt;
-    public Player player;
-
+    Player player;
     public string Name { get; set; }
     public float HP { get; set; }
     public float Speed { get; set; }
     public string WeaponName { get; set; }
 
-    void Awake()
-    { 
-        instance = this;
-    }
+    void Awake() { Instance = this; }
+
     void Start()
     {
         btn.onClick.AddListener(OnButtonStart);
@@ -42,10 +39,11 @@ public class SelectCard : MonoBehaviour
     void OnButtonStart()
     {
         DontDestroyOnLoad(player.gameObject);
+        
         SceneManager.LoadScene(2);
     }
 
-    /*public void PlayerSetting()
+    public void PlayerSetting()
     {
         player.Initialize();
         Name = player.gameObject.name;
@@ -53,8 +51,9 @@ public class SelectCard : MonoBehaviour
         HP = player.HP;
         Speed = player.pd.speed;
         WeaponName = player.weapon.name;
-    }*/
-    public void PlayerSet(Player player)
+    }
+
+    public Player PlayerSet(Player player)
     {
         this.player = player;
         Name = player.gameObject.name;
@@ -62,5 +61,7 @@ public class SelectCard : MonoBehaviour
         HP = player.HP;
         Speed = player.pd.speed;
         WeaponName = player.weapon.name;
+
+        return this.player;
     }
 }

@@ -6,7 +6,7 @@ public class Yeongmi : Player
 {
     public override void Initialize()
     {
-        Instance = this;
+        //Instance = this;
 
         pd.maxHp = 35;
         pd.curHp = pd.maxHp;

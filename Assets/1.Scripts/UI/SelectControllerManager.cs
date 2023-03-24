@@ -10,8 +10,6 @@ public class SelectControllerManager : MonoBehaviour
     public static SelectControllerManager instance;
     public List<SelectCard> cards = new List<SelectCard>();
     public Player[] players;
-    public Transform parent;
-    public Player player;
 
     void Awake() { instance = this; }
 

@@ -499,8 +499,6 @@ MonoBehaviour:
   - {fileID: 3377962141240814161, guid: 3eb7f08d3ffaace4c900e9d4f29bbf76, type: 3}
   - {fileID: 1637905393720931196, guid: caa3e2fa123518549935debb6abe8057, type: 3}
   - {fileID: 5603929487991326428, guid: ca4903d2ebbef0e429b937a636a88fb5, type: 3}
-  parent: {fileID: 916099918}
-  player: {fileID: 772298902985544915, guid: b600473ba8b1e9441a85681befdc6b66, type: 3}
 --- !u!4 &473242721
 Transform:
   m_ObjectHideFlags: 0

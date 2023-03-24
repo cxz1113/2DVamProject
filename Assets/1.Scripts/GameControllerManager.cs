@@ -14,10 +14,8 @@ public class GameControllerManager : MonoBehaviour
     { 
         instance = this;
 
-        Player p = Instantiate(Player.Instance);
-        player = p;
-        Destroy(Player.Instance.gameObject);
-
+        //Player player = Instantiate(Player.Instance);
+        GameObject obj = Instantiate(Player.Instance.gameObject);
         if (player == null)
             UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }   
