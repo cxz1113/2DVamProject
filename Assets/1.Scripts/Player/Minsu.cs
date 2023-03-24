@@ -6,6 +6,8 @@ public class Minsu : Player
 {
     public override void Initialize()
     {
+        Instance = this;
+
         pd.maxHp = 80;
         pd.curHp = pd.maxHp;
         pd.speed = 2.5f;

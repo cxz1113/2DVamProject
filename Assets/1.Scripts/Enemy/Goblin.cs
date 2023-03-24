@@ -9,9 +9,6 @@ public class Goblin : Enemy
         ed.curHp = ed.maxHp;
         ed.speed = 4f;
         ed.attack = 20f;
-        ed.level = 1;
-        ed.player = FindAnyObjectByType<Player>();
-        IsAlive = true;
 
         base.Initialize();
     }

@@ -9,8 +9,16 @@ public class GameControllerManager : MonoBehaviour
     public UIManager uiCont;
     public Enemy[] enemys;
     public Transform playerStart;
+
     void Awake() 
     { 
         instance = this;
+
+        Player p = Instantiate(Player.Instance);
+        player = p;
+        Destroy(Player.Instance.gameObject);
+
+        if (player == null)
+            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }   
 }

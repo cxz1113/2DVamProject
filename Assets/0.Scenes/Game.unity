@@ -4454,7 +4454,7 @@ Transform:
   m_Children:
   - {fileID: 248162558}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &239167383
 MonoBehaviour:
@@ -4468,7 +4468,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53cd0c2cd7a7dae4486cac66af1dcc76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!1 &248162554
 GameObject:
   m_ObjectHideFlags: 0
@@ -18141,7 +18140,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   uiCont: {fileID: 572725534}
-  enemys: []
+  enemys:
+  - {fileID: 7769692974048069903, guid: 2291ebcc525d8e049ab17b826377333f, type: 3}
+  - {fileID: 5898438088811713341, guid: 2952eb6c5c8779c40a37387202da12ae, type: 3}
+  - {fileID: 6461029908949234634, guid: c63904593865e364c93d1d5dcf3e9cbb, type: 3}
+  - {fileID: 7705991707077013383, guid: b0d0cb489108f84478fc16d1ace2e8e4, type: 3}
   playerStart: {fileID: 1228031401}
 --- !u!4 &1285260672
 Transform:
@@ -18156,7 +18159,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1299129350
 GameObject:

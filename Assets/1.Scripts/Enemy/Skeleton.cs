@@ -10,9 +10,6 @@ public class Skeleton : Enemy
         ed.curHp = ed.maxHp;
         ed.speed = 3f;
         ed.attack = 7.5f;
-        ed.level = 1;
-        ed.player = FindAnyObjectByType<Player>();
-        IsAlive = true;
 
         base.Initialize();
     }

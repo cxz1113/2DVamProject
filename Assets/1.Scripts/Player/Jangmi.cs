@@ -6,6 +6,8 @@ public class Jangmi : Player
 {
     public override void Initialize()
     {
+        Instance = this;
+
         pd.maxHp = 50;
         pd.curHp = pd.maxHp;
         pd.speed = 5.5f;

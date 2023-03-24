@@ -4,25 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-
 public class SelectCard : MonoBehaviour
 {
+    public static SelectCard instance;
+
     [SerializeField] private Button btn;
     [SerializeField] private TMP_Text nameTxt;
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text hpTxt;
     [SerializeField] private TMP_Text speedTxt;
     [SerializeField] private TMP_Text weaponTxt;
-    Player player;
+    public Player player;
 
     public string Name { get; set; }
     public float HP { get; set; }
     public float Speed { get; set; }
     public string WeaponName { get; set; }
 
+    void Awake()
+    { 
+        instance = this;
+    }
     void Start()
     {
         btn.onClick.AddListener(OnButtonStart);
+        //PlayerSetting();
     }
 
     void Update()
@@ -35,11 +41,19 @@ public class SelectCard : MonoBehaviour
 
     void OnButtonStart()
     {
+        DontDestroyOnLoad(player.gameObject);
         SceneManager.LoadScene(2);
-        DontDestroyOnLoad(player);
-        Instantiate(player, GameControllerManager.instance.playerStart);
     }
 
+    /*public void PlayerSetting()
+    {
+        player.Initialize();
+        Name = player.gameObject.name;
+        image.sprite = player.GetComponent<SpriteRenderer>().sprite;
+        HP = player.HP;
+        Speed = player.pd.speed;
+        WeaponName = player.weapon.name;
+    }*/
     public void PlayerSet(Player player)
     {
         this.player = player;

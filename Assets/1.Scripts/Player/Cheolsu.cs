@@ -6,6 +6,8 @@ public class Cheolsu : Player
 {
     public override void Initialize()
     {
+        Instance = this;
+
         pd.maxHp = 50;
         pd.curHp = pd.maxHp;
         pd.speed = 4.5f;

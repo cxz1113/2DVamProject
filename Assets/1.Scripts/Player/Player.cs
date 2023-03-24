@@ -25,6 +25,8 @@ public enum Direction
 
 public abstract class Player : MonoBehaviour
 {
+    public static Player Instance;
+
     [SerializeField] public List<Sprite> idleSp;
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> dieSp;

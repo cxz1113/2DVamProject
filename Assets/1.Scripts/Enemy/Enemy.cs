@@ -49,6 +49,10 @@ public abstract class Enemy : MonoBehaviour
     }
     public virtual void Initialize()
     {
+        ed.level = 1;
+        ed.player = GameControllerManager.instance.player;
+        IsAlive = true;
+
         if (ed.player.pd.level % 5 == 0)
         {
             if (ed.level >= 5)
