@@ -290,6 +290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SelectCard
       objectReference: {fileID: 0}
+    - target: {fileID: 717387663225769441, guid: 21092accd4559e1409f3055ccd98da2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 717387663225769442, guid: 21092accd4559e1409f3055ccd98da2a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -499,6 +503,7 @@ MonoBehaviour:
   - {fileID: 3377962141240814161, guid: 3eb7f08d3ffaace4c900e9d4f29bbf76, type: 3}
   - {fileID: 1637905393720931196, guid: caa3e2fa123518549935debb6abe8057, type: 3}
   - {fileID: 5603929487991326428, guid: ca4903d2ebbef0e429b937a636a88fb5, type: 3}
+  parent: {fileID: 0}
 --- !u!4 &473242721
 Transform:
   m_ObjectHideFlags: 0
@@ -758,6 +763,10 @@ PrefabInstance:
     - target: {fileID: 717387663225769441, guid: 21092accd4559e1409f3055ccd98da2a, type: 3}
       propertyPath: m_Name
       value: SelectCard (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 717387663225769441, guid: 21092accd4559e1409f3055ccd98da2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 717387663225769442, guid: 21092accd4559e1409f3055ccd98da2a, type: 3}
       propertyPath: m_Pivot.x
@@ -1099,6 +1108,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SelectCard (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 717387663225769441, guid: 21092accd4559e1409f3055ccd98da2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 717387663225769442, guid: 21092accd4559e1409f3055ccd98da2a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1347,6 +1360,10 @@ PrefabInstance:
     - target: {fileID: 717387663225769441, guid: 21092accd4559e1409f3055ccd98da2a, type: 3}
       propertyPath: m_Name
       value: SelectCard (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 717387663225769441, guid: 21092accd4559e1409f3055ccd98da2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 717387663225769442, guid: 21092accd4559e1409f3055ccd98da2a, type: 3}
       propertyPath: m_Pivot.x

@@ -2,20 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 public class GameControllerManager : MonoBehaviour
 {
     public static GameControllerManager instance;
     public Player player;
     public UIManager uiCont;
-    public Enemy[] enemys;
-    public Transform playerStart;
+    public Transform weaponTrans;
+    public Image exImage;
+    public TMP_Text levelTxt;
 
     void Awake() 
-    { 
-        instance = this;
-
-        //Player player = Instantiate(Player.Instance);
-        GameObject obj = Instantiate(Player.Instance.gameObject);
+    {
+        Player player = Instantiate(Player.Instance);
+        this.player = player;
+        this.player.exImage = exImage;
+        this.player.levelTxt = levelTxt;
+        this.player.parent = weaponTrans;
+        
+        //Destroy(Player.Instance.transform.gameObject);
         if (player == null)
             UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }   

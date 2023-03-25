@@ -10,6 +10,7 @@ public class SelectControllerManager : MonoBehaviour
     public static SelectControllerManager instance;
     public List<SelectCard> cards = new List<SelectCard>();
     public Player[] players;
+    //public Transform parent;
 
     void Awake() { instance = this; }
 
@@ -18,6 +19,15 @@ public class SelectControllerManager : MonoBehaviour
         //btn.onClick.AddListener(card.PlayerSetting);
         //CardSetting();
         PlayerSetting();
+        //PlayerCard();
+    }
+
+    public void PlayerCard()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            //Instantiate(players[i], parent);
+        }
     }
 
     public void PlayerSetting()

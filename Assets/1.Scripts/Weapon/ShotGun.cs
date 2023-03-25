@@ -11,7 +11,7 @@ public class ShotGun : Weapon
     public override void Initialize()
     {
         bulletPos = transform.GetChild(0).transform;
-        wd.player = GameControllerManager.instance.player;
+        wd.player = Player.Instance;
         weaponDataType = WeaponDataType.ShotGun;
     }
 

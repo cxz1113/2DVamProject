@@ -6,7 +6,7 @@ public class HealinPotion : Item
 {
     public override void Initialize()
     {
-        id.hp = GameControllerManager.instance.player.pd.maxHp / 2;
+        id.hp = Player.Instance.pd.maxHp / 2;
         ItemType = ItemType.HealingPotion;
         id.obj = gameObject;
     }

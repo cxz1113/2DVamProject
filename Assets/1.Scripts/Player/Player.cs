@@ -31,10 +31,10 @@ public abstract class Player : MonoBehaviour
     [SerializeField] private List<Sprite> moveSp;
     [SerializeField] private List<Sprite> dieSp;
     [SerializeField] private SpriteRenderer sr;
-    [SerializeField] private Image exImage;
-    [SerializeField] private TMP_Text levelTxt;
     [SerializeField] private Image hpImage;
 
+    public TMP_Text levelTxt;
+    public Image exImage;
     public Weapon weapon;
     public List<Weapon> weapons;
     public Transform parent;
@@ -193,6 +193,7 @@ public abstract class Player : MonoBehaviour
         {
             //GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
             GetComponent<SpriteAnimation>().SetSprite(dieSp, 0.2f);
+            hand.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
         }
     }
 

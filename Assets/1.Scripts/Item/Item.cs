@@ -42,24 +42,25 @@ public abstract class Item : MonoBehaviour
 
     public void ItemSelect()
     {
+        Player player = Player.Instance;
         switch(ItemType)
         {
             case ItemType.Ex0:
-                GameControllerManager.instance.player.CurExperience += id.score;
+                player.CurExperience += id.score;
                 break;
             case ItemType.Ex1:
-                GameControllerManager.instance.player.CurExperience += id.score;
+                player.CurExperience += id.score;
                 break;
             case ItemType.Ex2:
-                GameControllerManager.instance.player.CurExperience += id.score;
+                player.CurExperience += id.score;
                 break;
             case ItemType.HealingPotion:
-                if (GameControllerManager.instance.player.HP >= GameControllerManager.instance.player.pd.maxHp)
+                if (player.HP >= player.pd.maxHp)
                     return;
-                GameControllerManager.instance.player.HP += id.hp;
+                player.HP += id.hp;
                 break;
             case ItemType.Shadow:
-                GameControllerManager.instance.player.StartCoroutine("Hide");
+                player.StartCoroutine("Hide");
                 break;
         }        
     }

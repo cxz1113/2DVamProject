@@ -6,8 +6,8 @@ public class Gun : Weapon
 {
     public override void Initialize()
     {
-        wd.attack = 50;
-        wd.speed = 6f;
+        bulletPos = transform.GetChild(0).transform;
+        wd.player = Player.Instance;
         weaponDataType = WeaponDataType.Gun;
     }
 

@@ -10,7 +10,7 @@ public class Minsu : Player
 
         pd.maxHp = 80;
         pd.curHp = pd.maxHp;
-        pd.speed = 2.5f;
+        pd.speed = 4f;
         pd.level = 1;
         pd.maxExperience = ((pd.level * (pd.level + 1)) * 25) - 50;
         pd.curExperience = 0;

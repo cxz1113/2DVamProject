@@ -38,8 +38,7 @@ public class SelectCard : MonoBehaviour
 
     void OnButtonStart()
     {
-        DontDestroyOnLoad(player.gameObject);
-        
+        DontDestroyOnLoad(player);
         SceneManager.LoadScene(2);
     }
 

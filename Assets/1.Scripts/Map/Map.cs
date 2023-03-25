@@ -19,7 +19,8 @@ public class Map : MonoBehaviour
             return;
         else if (collision.CompareTag("MBullet"))
             return;
-        Vector3 playerPos = GameControllerManager.instance.player.transform.position;
+        //Vector3 playerPos = GameControllerManager.instance.player.transform.position;
+        Vector3 playerPos = Player.Instance.transform.position;
         Vector3 mapPos = transform.position;
 
         float distanceX = Mathf.Abs(playerPos.x - mapPos.x);
