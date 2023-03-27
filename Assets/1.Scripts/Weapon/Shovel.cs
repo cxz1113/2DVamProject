@@ -12,7 +12,7 @@ public class Shovel : Weapon
         wd.attack = 20;
         wd.speed = 4f;
         wd.fireTime = 0;
-        wd.player = GameControllerManager.instance.player;
+        wd.player = Player.Instance;
         weaponDataType = WeaponDataType.Shovel;
         wd.level = 1;
     }

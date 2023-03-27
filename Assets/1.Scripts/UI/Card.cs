@@ -25,7 +25,7 @@ public class Card : MonoBehaviour
 
     void OnButtonWeapon()
     {
-        Player player = GameControllerManager.instance.player;
+        Player player = Player.Instance;
         if (player.weapons.Contains(weapon))
         {
             Shovel shovel = weapon.GetComponentInChildren<Shovel>();
@@ -61,7 +61,7 @@ public class Card : MonoBehaviour
         Destroy(player.transform.GetChild(1).transform.GetChild(0).gameObject);
         player.pd.weapon = Instantiate(weapon, player.hand);
         player.weapons.Add(weapon);
-        GameControllerManager.instance.uiCont.gameObject.SetActive(false);
+        GameControllerManager.instance.uiCont.transform.gameObject.SetActive(false);
         player.IsLevel = false;
 
     }

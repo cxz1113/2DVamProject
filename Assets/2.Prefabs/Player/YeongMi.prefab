@@ -354,14 +354,20 @@ MonoBehaviour:
   - {fileID: 1375599644, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
   - {fileID: 1929632063, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
   sr: {fileID: 3377962141240814175}
-  exImage: {fileID: 0}
-  levelTxt: {fileID: 0}
   hpImage: {fileID: 3377962141120146723}
+  levelTxt: {fileID: 0}
+  exImage: {fileID: 0}
   weapon: {fileID: 2177762062119222885, guid: 6e78a9c99df3b914eaf10e11c00eeca2, type: 3}
   weapons: []
   parent: {fileID: 0}
-  hand: {fileID: 0}
-  meleeHands: []
+  hand: {fileID: 3377962142404256658}
+  meleeHands:
+  - {fileID: 3377962141375623574}
+  - {fileID: 3377962141005615221}
+  - {fileID: 3377962141331648922}
+  - {fileID: 3377962141793849549}
+  - {fileID: 3377962141611680921}
+  - {fileID: 3377962142755134226}
   melee: {fileID: 3377962142923475379}
   direction: 0
   hpCanvas: {fileID: 3377962140898280393}

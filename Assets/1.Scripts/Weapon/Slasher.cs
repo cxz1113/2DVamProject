@@ -8,7 +8,7 @@ public class Slasher : Weapon
     {
         bulletPos = transform.GetChild(0).transform;
         weaponDataType = WeaponDataType.Slasher;
-        wd.player = GameControllerManager.instance.player;
+        wd.player = Player.Instance;
     }
 
     void Start()

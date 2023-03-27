@@ -13,7 +13,6 @@ public struct PlayerData
     public float maxExperience;
     public float curExperience;
     public Weapon weapon;
-    public MeleeWeapon meleeWeapon;
     public Enemy enemy;
 }
 public enum Direction
@@ -88,16 +87,14 @@ public abstract class Player : MonoBehaviour
 
         Move();
         FindEnemy();
-        
-        if(Input.GetKeyDown(KeyCode.F1))
+
+        melee.Rotate(Vector3.forward * Time.deltaTime * 150);
+
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             GameControllerManager.instance.uiCont.transform.gameObject.SetActive(true);
         }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            GameControllerManager.instance.uiCont.transform.gameObject.SetActive(false);
-        }
-        melee.transform.Rotate(Vector3.forward * Time.deltaTime * 150);
+
     }
 
     public void Move()

@@ -7,7 +7,7 @@ public class MeleeShovel : Weapon
     public override void Initialize()
     {
         wd.attack = 15;
-        wd.player = GameControllerManager.instance.player;
+        wd.player = Player.Instance;
     }
 
     void Start()

@@ -6,7 +6,7 @@ public class Jangmi : Player
 {
     public override void Initialize()
     {
-        //Instance = this;
+        Instance = this;
 
         pd.maxHp = 50;
         pd.curHp = pd.maxHp;

@@ -18,7 +18,7 @@ public class SelectControllerManager : MonoBehaviour
     {
         //btn.onClick.AddListener(card.PlayerSetting);
         //CardSetting();
-        PlayerSetting();
+        //PlayerSetting();
         //PlayerCard();
     }
 

@@ -8,7 +8,7 @@ public class Rifle : Weapon
     {
         bulletPos = transform.GetChild(0).transform;
         weaponDataType = WeaponDataType.Rifle;
-        wd.player = GameControllerManager.instance.player;
+        wd.player = Player.Instance;
     }
 
     void Start()

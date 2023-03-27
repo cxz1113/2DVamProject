@@ -14,7 +14,7 @@ public class SelectCard : MonoBehaviour
     [SerializeField] private TMP_Text hpTxt;
     [SerializeField] private TMP_Text speedTxt;
     [SerializeField] private TMP_Text weaponTxt;
-    Player player;
+    public Player player;
     public string Name { get; set; }
     public float HP { get; set; }
     public float Speed { get; set; }
@@ -25,7 +25,7 @@ public class SelectCard : MonoBehaviour
     void Start()
     {
         btn.onClick.AddListener(OnButtonStart);
-        //PlayerSetting();
+        PlayerSetting();
     }
 
     void Update()
@@ -38,7 +38,8 @@ public class SelectCard : MonoBehaviour
 
     void OnButtonStart()
     {
-        DontDestroyOnLoad(player);
+        Player.Instance = this.player;
+        DontDestroyOnLoad(player.gameObject);
         SceneManager.LoadScene(2);
     }
 

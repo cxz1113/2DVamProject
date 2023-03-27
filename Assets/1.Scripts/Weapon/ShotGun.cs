@@ -61,7 +61,7 @@ public class ShotGun : Weapon
                 }
                 fireTrans.Clear();
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }
