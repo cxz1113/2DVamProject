@@ -92,7 +92,11 @@ public abstract class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            GameControllerManager.instance.uiCont.transform.gameObject.SetActive(true);
+            GameControllerManager.instance.uiCont.gameObject.SetActive(true);
+        }
+        if(Input.GetKeyDown(KeyCode.F2))
+        {
+            GameControllerManager.instance.uiCont.gameObject.SetActive(false);
         }
 
     }
@@ -162,7 +166,7 @@ public abstract class Player : MonoBehaviour
         pd.speed += ((pd.level * (pd.level + 1)) * 0.5f) / 100;
         exImage.fillAmount = 0;
         pd.level++;
-        if((pd.level / 5) == 1)
+        if((pd.level % 5) == 0)
         {
             IsLevel = true;
             GameControllerManager.instance.uiCont.gameObject.SetActive(true);

@@ -15,7 +15,7 @@ public class GameControllerManager : MonoBehaviour
 
     void Awake() 
     {
-        
+        instance = this;
         Player player = Instantiate(Player.Instance);
         this.player = player;
         this.player.exImage = exImage;
@@ -25,10 +25,5 @@ public class GameControllerManager : MonoBehaviour
         //Destroy(Player.Instance.transform.gameObject);
         if (player == null)
             UnityEngine.SceneManagement.SceneManager.LoadScene(1);
-    }
-
-    void Update()
-    {
-
     }
 }

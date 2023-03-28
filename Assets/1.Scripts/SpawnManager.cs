@@ -17,12 +17,23 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spawnDelay += Time.deltaTime;
-        if(spawnDelay > 1f)
+        Player player = Player.Instance;
+        if(player.pd.level == 3)
         {
-            spawnDelay = 0;
-            Phase4(prefabs, trans);
+            //Invoke("Boss", 3);
         }
+        else
+        {
+            spawnDelay += Time.deltaTime;
+            if (spawnDelay > 1f)
+            {
+                spawnDelay = 0;
+                Phase4(prefabs, trans);
+            }
+        }
+        
+
+
 
         /*spawnDelay += Time.deltaTime;
         if(spawnDelay > 1.5f)
@@ -75,13 +86,19 @@ public class SpawnManager : MonoBehaviour
 
     public void Phase4(Enemy[] enemies, Transform[] trans)
     {
-        int rand = Random.Range(0, prefabs.Length);
-        int transRand = Random.Range(0, trans.Length);
+        int rand = Random.Range(0, 4);
+        int transRand = Random.Range(0, 4);
         Enemy enemy = Instantiate(enemies[rand], trans[transRand]);
         enemy.Initialize();
         enemy.transform.SetParent(parent);
     }
 
+    public void Boss()
+    {
+        Enemy enemy = Instantiate(prefabs[4], trans[3]);
+        enemy.Initialize();
+        enemy.transform.SetParent(parent);
+    }
 
     public void Spawn()
     {
