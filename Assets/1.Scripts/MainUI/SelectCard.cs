@@ -38,7 +38,7 @@ public class SelectCard : MonoBehaviour
 
     void OnButtonStart()
     {
-        Player.Instance = this.player;
+        Player.Instance = player;
         DontDestroyOnLoad(player.gameObject);
         SceneManager.LoadScene(2);
     }

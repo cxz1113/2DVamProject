@@ -16,5 +16,8 @@ public abstract class Bullet : MonoBehaviour
     [HideInInspector] public GameObject move;
     public abstract void Initialize();
 
-    public abstract void Move();
+    public virtual void Move()
+    {
+        transform.Translate(Vector2.up * Time.deltaTime * bd.speed);
+    }
 }

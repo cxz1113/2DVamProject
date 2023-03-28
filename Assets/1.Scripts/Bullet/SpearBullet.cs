@@ -23,6 +23,6 @@ public class SpearBullet : Bullet
 
     public override void Move()
     {
-        transform.Translate(Vector2.up * Time.deltaTime * bd.speed);
+        base.Move();
     }
 }

@@ -28,7 +28,7 @@ public class SlasherBullet : Bullet
 
     public override void Move()
     {
-        transform.Translate(Vector2.up * Time.deltaTime * bd.speed);
+        base.Move();
         move.transform.Rotate(0f, 0f, 20); 
     }
 }
